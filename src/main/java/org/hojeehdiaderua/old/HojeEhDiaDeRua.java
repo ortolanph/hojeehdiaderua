@@ -16,10 +16,10 @@ import java.util.List;
 public class HojeEhDiaDeRua {
 
     @Autowired
-    private Environment environment;
+    private static Environment environment;
 
     public static void main(String[] args) {
-        GeoApiContext context = new GeoApiContext().setApiKey("API_KEY");
+        GeoApiContext context = new GeoApiContext().setApiKey(environment.getProperty("API_KEY"));
 
         try {
             GeocodingResult[] results = GeocodingApi.geocode(context,
