@@ -23,9 +23,9 @@ import java.util.Properties;
 
 @EnableWebMvc
 @Configuration
-@PropertySource("classpath:manutencao.properties")
-@ComponentScan(basePackages = {"org.manutencao.controller", "org.manutencao.service"})
-@EnableJpaRepositories("org.manutencao.repositories")
+@PropertySource("classpath:hojeehdiaderua.properties")
+@ComponentScan(basePackages = {"org.hojeehdiaderua.controller", "org.hojeehdiaderua.service"})
+@EnableJpaRepositories("org.hojeehdiaderua.repositories")
 @Import({SecurityConfig.class})
 public class AppConfig extends WebMvcConfigurerAdapter {
 
@@ -81,11 +81,11 @@ public class AppConfig extends WebMvcConfigurerAdapter {
 
         Properties props = new Properties();
 
-        props.setProperty("hibernate.format_sql", "false");
-        props.setProperty("hibernate.show_sql", "false");
-        props.setProperty("hibernate.hbm2ddl.auto", "update");
-        props.setProperty("hibernate.dialect", "org.hibernate.dialect.PostgreSQLDialect");
-        props.setProperty("hibernate.query.substitutions", "true 1, false 0");
+        props.setProperty("hibernate.format_sql", environment.getProperty("hibernate.format_sql"));
+        props.setProperty("hibernate.show_sql", environment.getProperty("hibernate.show_sql"));
+        props.setProperty("hibernate.hbm2ddl.auto", environment.getProperty("hibernate.hbm2ddl.auto"));
+        props.setProperty("hibernate.dialect", environment.getProperty("hibernate.dialect"));
+        props.setProperty("hibernate.query.substitutions", environment.getProperty("hibernate.query.substitutions"));
 
         b.setJpaProperties(props);
         return b;

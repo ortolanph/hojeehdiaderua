@@ -2,6 +2,7 @@ package org.hojeehdiaderua;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.env.Environment;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -26,15 +27,21 @@ import java.io.IOException;
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
+    private Environment environment;
+
+    @Autowired
     public void configureGlobal(AuthenticationManagerBuilder builder) throws Exception {
-        builder.inMemoryAuthentication().withUser("ortolan").password("1234567").roles("ADMIN");
-	    builder.inMemoryAuthentication().withUser("ortolan").password("1234567").roles("XXXXX");
+        builder
+                .inMemoryAuthentication()
+                .withUser(environment.getProperty("JOB_USER"))
+                .password(environment.getProperty("JOB_PASSWORD"))
+                .roles("ADMIN");
     }
 
     @Override
     public void configure(HttpSecurity http) throws Exception {
         http
-                .authorizeRequests().antMatchers("/manutencao/**").permitAll()
+                .authorizeRequests().antMatchers("/hojeehdiaderua/**").permitAll()
                 .antMatchers("/admin/**").access("hasRole('ROLE_ADMIN')")
                 .and().formLogin()
                 .and().csrf().csrfTokenRepository(csrfTokenRepository())
