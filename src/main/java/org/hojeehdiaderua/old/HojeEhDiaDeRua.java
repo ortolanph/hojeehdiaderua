@@ -33,16 +33,16 @@ public class HojeEhDiaDeRua {
                 boolean ehRua = false;
 
                 for (AddressComponent addressComponent : result.addressComponents) {
-                    if(ehRota(addressComponent.types)) {
+                    if (ehRota(addressComponent.types)) {
                         System.out.println(addressComponent.longName);
                         ehRua = true;
                     }
 
-                    if(ehCidade(addressComponent.types) && ehRua) {
+                    if (ehCidade(addressComponent.types) && ehRua) {
                         System.out.println(addressComponent.longName);
                     }
 
-                    if(ehEstado(addressComponent.types) && ehRua) {
+                    if (ehEstado(addressComponent.types) && ehRua) {
                         System.out.println(addressComponent.longName);
                         System.out.println(addressComponent.shortName);
                     }
