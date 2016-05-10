@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 public class Resultado<T> {
     private String mensagem;
     private Status status;
-    private String style;
     private T resultado;
 
     public String getMensagem() {
@@ -23,14 +22,6 @@ public class Resultado<T> {
 
     public void setStatus(Status status) {
         this.status = status;
-    }
-
-    public String getStyle() {
-        return style;
-    }
-
-    public void setStyle(String style) {
-        this.style = style;
     }
 
     public T getResultado() {
