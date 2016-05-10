@@ -1,9 +1,11 @@
 package org.hojeehdiaderua.beans;
 
+import java.util.List;
+
 public class Execucao {
     private String timestampInicial;
     private String timestampFinal;
-    private String log;
+    private List<String> log;
 
     public String getTimestampInicial() {
         return timestampInicial;
@@ -21,11 +23,11 @@ public class Execucao {
         this.timestampFinal = timestampFinal;
     }
 
-    public String getLog() {
+    public List<String> getLog() {
         return log;
     }
 
-    public void setLog(String log) {
+    public void setLog(List<String> log) {
         this.log = log;
     }
 }
