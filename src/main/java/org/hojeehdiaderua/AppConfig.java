@@ -1,5 +1,6 @@
 package org.hojeehdiaderua;
 
+import com.google.maps.GeoApiContext;
 import org.apache.commons.dbcp.BasicDataSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.*;
@@ -121,4 +122,11 @@ public class AppConfig extends WebMvcConfigurerAdapter {
         dataSource.setMinIdle(10);
         return dataSource;
     }
+
+    @Bean
+    public GeoApiContext geoApiContext() {
+        return new GeoApiContext().setApiKey(environment.getProperty("API_KEY"));
+    }
+
+
 }

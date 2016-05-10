@@ -4,8 +4,10 @@ import org.hojeehdiaderua.beans.Calendario;
 import org.hojeehdiaderua.beans.Localidade;
 import org.hojeehdiaderua.beans.Resultado;
 import org.hojeehdiaderua.beans.Status;
+import org.hojeehdiaderua.repositories.LogradouroDataRepository;
 import org.hojeehdiaderua.service.DayOfWeekConverter;
 import org.hojeehdiaderua.service.MonthConverter;
+import org.hojeehdiaderua.utils.ResultadoUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -29,10 +31,15 @@ public class DiaDeRuaController {
     @Autowired
     private MonthConverter monthConverter;
 
-    @RequestMapping(value = "/queRuaEhHoje/{dia}/{mes}", method = RequestMethod.GET)
+    @Autowired
+    private LogradouroDataRepository repository;
+
+    private ResultadoUtil<Calendario> resultadoUtil;
+
+    @RequestMapping(value = "/queRuaEhHoje", method = RequestMethod.GET)
     public
     @ResponseBody
-    Resultado<Calendario> obterRuas(@PathVariable Integer dia, @PathVariable Integer mes) {
+    Resultado<Calendario> obterRuas() {
         LocalDate hoje = LocalDate.now();
 
         // Aqui acontece a pesquisa (hoje.getDayOfMonth(), hoje.getMonth().getValue())
@@ -55,13 +62,9 @@ public class DiaDeRuaController {
 
         calendario.setLocalidades(localidades);
 
-        Resultado<Calendario> calendarioResultado = new Resultado<>();
+        resultadoUtil = new ResultadoUtil<>();
 
-        calendarioResultado.setMensagem("OK");
-        calendarioResultado.setStatus(Status.SUCCESS);
-        calendarioResultado.setResultado(calendario);
-
-        return calendarioResultado;
+        return resultadoUtil.comSucesso(calendario);
     }
 
 }

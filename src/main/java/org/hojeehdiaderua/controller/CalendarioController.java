@@ -2,8 +2,11 @@ package org.hojeehdiaderua.controller;
 
 import org.hojeehdiaderua.beans.Execucao;
 import org.hojeehdiaderua.beans.Resultado;
-import org.hojeehdiaderua.beans.Status;
+import org.hojeehdiaderua.entities.LogradouroData;
+import org.hojeehdiaderua.repositories.LogradouroDataRepository;
 import org.hojeehdiaderua.utils.ExecucaoManager;
+import org.hojeehdiaderua.utils.ResultadoUtil;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,10 +20,14 @@ import java.time.LocalDate;
         produces = {"application/json;charset=UTF-8"})
 public class CalendarioController {
 
+    @Autowired
+    private LogradouroDataRepository repository;
+
     private ExecucaoManager execucaoManager;
 
-    @RequestMapping(value = "/processaDiaAtual", method = RequestMethod.POST)
+    private ResultadoUtil<Execucao> resultadoUtil;
 
+    @RequestMapping(value = "/processaDiaAtual", method = RequestMethod.POST)
     public
     @ResponseBody
     Resultado<Execucao> obtemDiaAtual() {
@@ -35,37 +42,58 @@ public class CalendarioController {
     Resultado<Execucao> obterDia(@PathVariable Integer dia, @PathVariable Integer mes) {
         Execucao execucao = obterInformacoesDia(dia, mes);
 
-        Resultado<Execucao> execucaoResultado = new Resultado<>();
-        execucaoResultado.setMensagem("Sucesso");
-        execucaoResultado.setStatus(Status.SUCCESS);
-        execucaoResultado.setResultado(execucao);
+        resultadoUtil = new ResultadoUtil<>();
 
-        return execucaoResultado;
+        return resultadoUtil.comSucesso(execucao);
     }
 
     @RequestMapping(value = "/limpaBase", method = RequestMethod.GET)
     public
     @ResponseBody
     Resultado<Execucao> limpaBase() {
-        return null;
+        resultadoUtil = new ResultadoUtil<>();
+
+        execucaoManager = new ExecucaoManager();
+
+        execucaoManager.adicionaLog("Contagem de registros antes de deletar tudo: " + repository.count());
+        execucaoManager.adicionaLog("Deletando tudo");
+        repository.deleteAll();
+        execucaoManager.adicionaLog("Contagem de registros após deletar tudo: " + repository.count());
+
+        execucaoManager.finalizaExecucao();
+
+        return resultadoUtil.comSucesso(execucaoManager.obtemRelatorioExecucao());
     }
 
     @RequestMapping(value = "/limpaDia/{dia}/{mes}", method = RequestMethod.GET)
     public
     @ResponseBody
     Resultado<Execucao> limpaDia(@PathVariable Integer dia, @PathVariable Integer mes) {
-        return null;
+        resultadoUtil = new ResultadoUtil<>();
+
+        execucaoManager = new ExecucaoManager();
+
+        execucaoManager.adicionaLog("Contagem de registros antes de deletar registros: " + repository.count());
+        execucaoManager.adicionaLog("Deletando registros do dia " + dia + "/" + mes);
+        LogradouroData logradouroData = new LogradouroData();
+        logradouroData.setDia(dia.byteValue());
+        logradouroData.setMes(mes.byteValue());
+
+        repository.delete(logradouroData);
+        execucaoManager.adicionaLog("Contagem de registros após deletar registros: " + repository.count());
+
+        execucaoManager.finalizaExecucao();
+
+        return resultadoUtil.comSucesso(execucaoManager.obtemRelatorioExecucao());
     }
 
     private Execucao obterInformacoesDia(Integer dia, Integer mes) {
         execucaoManager = new ExecucaoManager();
 
-        execucaoManager.adicionaLog("");
+        execucaoManager.adicionaLog("Some information here");
 
         execucaoManager.finalizaExecucao();
 
         return execucaoManager.obtemRelatorioExecucao();
     }
-
-
 }
