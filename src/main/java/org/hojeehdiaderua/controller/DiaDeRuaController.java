@@ -6,6 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
 
@@ -15,7 +16,7 @@ import java.util.List;
 public class DiaDeRuaController {
 
     @RequestMapping(value = "/queRuaEhHoje/{dia}/{mes}", method = RequestMethod.GET)
-    public Resultado<List<Calendario>> obterRuas(@PathVariable Integer dia, @PathVariable Integer mes) {
+    public @ResponseBody Resultado<List<Calendario>> obterRuas(@PathVariable Integer dia, @PathVariable Integer mes) {
         return new Resultado();
     }
 
