@@ -87,6 +87,20 @@ public class CalendarioController {
         return resultadoUtil.comSucesso(execucaoManager.obtemRelatorioExecucao());
     }
 
+    @RequestMapping(value = "/adicionaFestividade", method = RequestMethod.POST, consumes = {"application/json;charset=UTF-8"})
+    public
+    @ResponseBody
+    Resultado<Execucao> insereFestividade() {
+        return null;
+    }
+
+    @RequestMapping(value = "/adicionaFestividade/{dia}/{mes}", method = RequestMethod.GET)
+    public
+    @ResponseBody
+    Resultado<Execucao> listaFestividades(@PathVariable Integer dia, @PathVariable Integer mes) {
+        return null;
+    }
+
     private Execucao obterInformacoesDia(Integer dia, Integer mes) {
         execucaoManager = new ExecucaoManager();
 

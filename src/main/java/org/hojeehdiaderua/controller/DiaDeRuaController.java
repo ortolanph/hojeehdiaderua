@@ -3,19 +3,18 @@ package org.hojeehdiaderua.controller;
 import org.hojeehdiaderua.beans.Calendario;
 import org.hojeehdiaderua.beans.Localidade;
 import org.hojeehdiaderua.beans.Resultado;
-import org.hojeehdiaderua.beans.Status;
 import org.hojeehdiaderua.repositories.LogradouroDataRepository;
 import org.hojeehdiaderua.service.DayOfWeekConverter;
 import org.hojeehdiaderua.service.MonthConverter;
 import org.hojeehdiaderua.utils.ResultadoUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 import static com.google.common.collect.Lists.newArrayList;
@@ -61,6 +60,14 @@ public class DiaDeRuaController {
         localidades.add(localidade);
 
         calendario.setLocalidades(localidades);
+
+        List<String> festividades = new ArrayList<>();
+
+        festividades.add("Dia de São Nunca");
+        festividades.add("Nascimento de John Doe");
+        festividades.add("Coroação de Hamlet na Dinamarca");
+
+        calendario.setFestividades(festividades);
 
         resultadoUtil = new ResultadoUtil<>();
 

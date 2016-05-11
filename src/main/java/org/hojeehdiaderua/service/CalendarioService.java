@@ -2,6 +2,7 @@ package org.hojeehdiaderua.service;
 
 import com.google.maps.GeoApiContext;
 import com.google.maps.model.AddressComponentType;
+import org.hojeehdiaderua.repositories.FestividadeRepository;
 import org.hojeehdiaderua.repositories.LogradouroDataRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,7 +18,10 @@ public class CalendarioService {
     private GeoApiContext geoApiContext;
 
     @Autowired
-    private LogradouroDataRepository repository;
+    private LogradouroDataRepository logradouroDataRepository;
+
+    @Autowired
+    private FestividadeRepository festividadeRepository;
 
 
     private boolean ehRota(AddressComponentType[] types) {
