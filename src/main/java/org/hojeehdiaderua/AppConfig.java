@@ -125,7 +125,7 @@ public class AppConfig extends WebMvcConfigurerAdapter {
 
     @Bean
     public GeoApiContext geoApiContext() {
-        return new GeoApiContext().setApiKey(environment.getProperty("API_KEY"));
+        return new GeoApiContext().setApiKey(environment.getProperty("GOOGLE_MAPS_API_KEY"));
     }
 
 
