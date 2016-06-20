@@ -9,7 +9,10 @@ import java.util.function.Function;
 public class MonthConverter implements Function<Month, String> {
 
     private static String[] MESES = new String[]{
-            "JAN", "FEV", "MAR", "ABR", "MAI", "JUN", "JUL", "AGO", "SET", "OUT", "NOV", "DEZ"
+            "Janeiro", "Fevereiro", "Março",
+            "Abril", "Maio", "Junho",
+            "Julho", "Agosto", "Setembro",
+            "Outubro", "Novembro", "Dezembro"
     };
 
     @Override

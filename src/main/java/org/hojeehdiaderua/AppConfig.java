@@ -84,7 +84,7 @@ public class AppConfig extends WebMvcConfigurerAdapter {
 
         props.setProperty("hibernate.format_sql", environment.getProperty("hibernate.format_sql"));
         props.setProperty("hibernate.show_sql", environment.getProperty("hibernate.show_sql"));
-        props.setProperty("hibernate.hbm2ddl.auto", environment.getProperty("hibernate.hbm2ddl.auto"));
+//        props.setProperty("hibernate.hbm2ddl.auto", environment.getProperty("hibernate.hbm2ddl.auto"));
         props.setProperty("hibernate.dialect", environment.getProperty("hibernate.dialect"));
         props.setProperty("hibernate.query.substitutions", environment.getProperty("hibernate.query.substitutions"));
 
@@ -104,7 +104,8 @@ public class AppConfig extends WebMvcConfigurerAdapter {
     public DataSource dataSource() {
         URI dbUri = null;
         try {
-            dbUri = new URI(System.getenv("DATABASE_URL"));
+            String uri = System.getenv("DATABASE_URL");
+            dbUri = new URI(uri);
         } catch (URISyntaxException e) {
             e.printStackTrace();
         }

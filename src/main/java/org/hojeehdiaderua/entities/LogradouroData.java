@@ -2,28 +2,29 @@ package org.hojeehdiaderua.entities;
 
 import com.google.common.base.MoreObjects;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
+@Table(name = "LogradouroData", schema = "diaderua")
+@SequenceGenerator(name = "seq_loda", schema = "diaderua", sequenceName = "diaderua.seq_logdata", allocationSize = 1)
 public class LogradouroData {
 
     @Id
-    @Column
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_loda")
+    @Column(name="loda_id")
     private long id;
 
-    @Column
+    @Column(name="loda_dia")
     private Byte dia;
 
-    @Column
+    @Column(name="loda_mes")
     private Byte mes;
 
-    @Column
+    @Column(name="loda_cidade")
     private String cidade;
 
-    @Column
+    @Column(name="loda_uf")
     private String uf;
 
     public long getId() {

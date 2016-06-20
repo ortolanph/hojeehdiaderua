@@ -18,7 +18,7 @@ public enum Grafia {
     DOZE(12, new String[]{"12", "Doze"}),
     TREZE(13, new String[]{"13", "Treze"}),
     CATORZE(14, new String[]{"14", "Catorze", "Quatorze"}),
-    QUINZE(15, new String[]{"15", "Quinze"}),
+    QUINZE(15, new String[]{"15", "Quinze", "XV"}),
     DEZESSEIS(16, new String[]{"16", "Dezesseis"}),
     DEZESSETE(17, new String[]{"17", "Dezessete"}),
     DEZOITO(18, new String[]{"18", "Dezoito"}),

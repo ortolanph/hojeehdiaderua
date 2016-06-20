@@ -43,6 +43,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .authorizeRequests().antMatchers("/hojeehdiaderua/**").permitAll()
                 .antMatchers("/admin/**").access("hasRole('ROLE_ADMIN')")
+                .and().httpBasic()
                 .and().formLogin()
                 .and().csrf().csrfTokenRepository(csrfTokenRepository())
                 .and().addFilterAfter(csrfHeaderFilter(), CsrfFilter.class);

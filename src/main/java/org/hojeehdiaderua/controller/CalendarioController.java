@@ -104,6 +104,8 @@ public class CalendarioController {
     private Execucao obterInformacoesDia(Integer dia, Integer mes) {
         execucaoManager = new ExecucaoManager();
 
+        execucaoManager.criarNovaExecucao();
+
         execucaoManager.adicionaLog("Some information here");
 
         execucaoManager.finalizaExecucao();

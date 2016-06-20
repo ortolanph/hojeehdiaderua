@@ -27,7 +27,7 @@ public class ExecucaoManager {
     }
 
     public String adicionaLog(String mensagem) {
-        return String.format("[%] %", formatter.format(LocalTime.now()), mensagem);
+        return String.format("[%s] %s", formatter.format(LocalTime.now()), mensagem);
     }
 
     public void finalizaExecucao() {

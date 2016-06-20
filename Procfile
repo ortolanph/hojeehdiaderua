@@ -1,1 +1,1 @@
-web: java $JAVA_OPTS -classpath target/dependency/jetty-runner.jar org.mortbay.jetty.runner.Runner --port $PORT target/*.war
+web: java $JAVA_OPTS -jar target/dependency/jetty-runner.jar --port $PORT target/*.war

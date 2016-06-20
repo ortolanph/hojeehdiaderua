@@ -9,7 +9,13 @@ import java.util.function.Function;
 public class DayOfWeekConverter implements Function<DayOfWeek, String> {
 
     private static String[] DIAS_DA_SEMANA = new String[]{
-            "SEG", "TER", "QUA", "QUI", "SEX", "SAB", "DOM"
+            "Segunda-Feira",
+            "Terça-Feira",
+            "Quarta-Feira",
+            "Quinta-Feira",
+            "Sexta-Feira",
+            "Sábado",
+            "Domingo"
     };
 
     @Override
