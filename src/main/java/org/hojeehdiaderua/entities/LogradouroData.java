@@ -2,17 +2,28 @@ package org.hojeehdiaderua.entities;
 
 import com.google.common.base.MoreObjects;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import java.util.Objects;
 
 @Entity
 public class LogradouroData {
+
     @Id
+    @Column
     private long id;
+
+    @Column
     private Byte dia;
+
+    @Column
     private Byte mes;
+
+    @Column
     private String cidade;
+
+    @Column
     private String uf;
 
     public long getId() {
