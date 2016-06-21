@@ -26,8 +26,8 @@ public class ExecucaoManager {
         execucao.setTimestampInicial(inicio.toString());
     }
 
-    public String adicionaLog(String mensagem) {
-        return String.format("[%s] %s", formatter.format(LocalTime.now()), mensagem);
+    public void adicionaLog(String mensagem) {
+        log.add(String.format("[%s] %s", formatter.format(LocalTime.now()), mensagem));
     }
 
     public void finalizaExecucao() {

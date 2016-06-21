@@ -4,6 +4,7 @@ import org.hojeehdiaderua.beans.Execucao;
 import org.hojeehdiaderua.beans.Resultado;
 import org.hojeehdiaderua.entities.LogradouroData;
 import org.hojeehdiaderua.repositories.LogradouroDataRepository;
+import org.hojeehdiaderua.service.DiaDeRuaService;
 import org.hojeehdiaderua.utils.ExecucaoManager;
 import org.hojeehdiaderua.utils.ResultadoUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +23,9 @@ public class CalendarioController {
 
     @Autowired
     private LogradouroDataRepository repository;
+
+    @Autowired
+    private DiaDeRuaService service;
 
     private ExecucaoManager execucaoManager;
 
@@ -107,6 +111,8 @@ public class CalendarioController {
         execucaoManager.criarNovaExecucao();
 
         execucaoManager.adicionaLog("Some information here");
+
+
 
         execucaoManager.finalizaExecucao();
 
