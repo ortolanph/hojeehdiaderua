@@ -66,7 +66,12 @@ public class CalendarioService {
                             logradouroData = new LogradouroData();
                             logradouroData.setDia((byte) dia);
                             logradouroData.setMes((byte) mes);
-                            ehRua = true;
+
+                            if(dia < 10 && addressComponent.longName.contains("Vinte")) {
+                                ehRua = false;
+                            } else {
+                                ehRua = true;
+                            }
                         }
 
                         if (ehCidade(addressComponent.types) && ehRua) {
