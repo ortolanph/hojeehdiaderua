@@ -3,8 +3,10 @@ package org.hojeehdiaderua.controller;
 import org.hojeehdiaderua.beans.Calendario;
 import org.hojeehdiaderua.beans.Localidade;
 import org.hojeehdiaderua.beans.Resultado;
+import org.hojeehdiaderua.entities.LogradouroData;
 import org.hojeehdiaderua.repositories.LogradouroDataRepository;
 import org.hojeehdiaderua.service.DayOfWeekConverter;
+import org.hojeehdiaderua.service.DiaDeRuaService;
 import org.hojeehdiaderua.service.MonthConverter;
 import org.hojeehdiaderua.utils.ResultadoUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,7 +35,7 @@ public class DiaDeRuaController {
     private MonthConverter monthConverter;
 
     @Autowired
-    private LogradouroDataRepository repository;
+    private DiaDeRuaService service;
 
     private ResultadoUtil<Calendario> resultadoUtil;
 
@@ -43,7 +45,7 @@ public class DiaDeRuaController {
     Resultado<Calendario> obterRuas() {
         LocalDate hoje = LocalDate.now();
 
-        // Aqui acontece a pesquisa (hoje.getDayOfMonth(), hoje.getMonth().getValue())
+        List<LogradouroData> logradouroDatas = service.obterDia((byte) hoje.getDayOfMonth(), (byte) hoje.getMonth().getValue());
 
         Calendario calendario = new Calendario();
 
@@ -54,20 +56,11 @@ public class DiaDeRuaController {
 
         List<Localidade> localidades = newArrayList();
 
-        Localidade localidade = new Localidade();
-
-        localidade.setCidade("São Paulo");
-        localidade.setUf("SP");
-
-        localidades.add(localidade);
+        logradouroDatas.forEach(l -> localidades.add(new Localidade(l.getCidade(), l.getUf())));
 
         calendario.setLocalidades(localidades);
 
         List<String> festividades = new ArrayList<>();
-
-        festividades.add("Dia de São Nunca");
-        festividades.add("Nascimento de John Doe");
-        festividades.add("Coroação de Hamlet na Dinamarca");
 
         calendario.setFestividades(festividades);
 

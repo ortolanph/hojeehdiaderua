@@ -4,6 +4,7 @@ import org.hojeehdiaderua.beans.Execucao;
 import org.hojeehdiaderua.beans.Resultado;
 import org.hojeehdiaderua.entities.LogradouroData;
 import org.hojeehdiaderua.repositories.LogradouroDataRepository;
+import org.hojeehdiaderua.service.CalendarioService;
 import org.hojeehdiaderua.service.DiaDeRuaService;
 import org.hojeehdiaderua.utils.ExecucaoManager;
 import org.hojeehdiaderua.utils.ResultadoUtil;
@@ -25,7 +26,7 @@ public class CalendarioController {
     private LogradouroDataRepository repository;
 
     @Autowired
-    private DiaDeRuaService service;
+    private CalendarioService service;
 
     private ExecucaoManager execucaoManager;
 
@@ -112,7 +113,7 @@ public class CalendarioController {
 
         execucaoManager.adicionaLog("Some information here");
 
-
+        service.obterNomesDeRuas(dia, mes, execucaoManager);
 
         execucaoManager.finalizaExecucao();
 

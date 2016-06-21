@@ -6,7 +6,7 @@ import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
-@Table(name = "LogradouroData", schema = "diaderua")
+@Table(name = "logradourodata", schema = "diaderua")
 @SequenceGenerator(name = "seq_loda", schema = "diaderua", sequenceName = "diaderua.seq_logdata", allocationSize = 1)
 public class LogradouroData {
 

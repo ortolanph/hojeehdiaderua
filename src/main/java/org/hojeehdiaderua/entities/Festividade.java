@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
-@Table(name = "Festividade", schema = "diaderua")
+@Table(name = "festividade", schema = "diaderua")
 @SequenceGenerator(name = "seq_festa", schema = "diaderua", sequenceName = "diaderua.seq_festividade", allocationSize = 1)
 public class Festividade {
 

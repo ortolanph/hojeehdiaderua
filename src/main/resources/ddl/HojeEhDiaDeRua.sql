@@ -1,6 +1,4 @@
---
--- PostgreSQL database dump
---
+--  Cria schema de banco de dados
 
 SET statement_timeout = 0;
 SET client_encoding = 'UTF8';
@@ -8,12 +6,7 @@ SET standard_conforming_strings = on;
 SET check_function_bodies = false;
 SET client_min_messages = warning;
 
---
--- Name: diaderua; Type: SCHEMA; Schema: -; Owner: postgres
---
-
 CREATE SCHEMA diaderua;
-
 
 ALTER SCHEMA diaderua OWNER TO postgres;
 
@@ -23,11 +16,7 @@ SET default_tablespace = '';
 
 SET default_with_oids = false;
 
---
--- Name: Festividade; Type: TABLE; Schema: diaderua; Owner: postgres; Tablespace:
---
-
-CREATE TABLE "Festividade" (
+CREATE TABLE festividade (
     fest_id integer NOT NULL,
     fest_dia smallint NOT NULL,
     fest_mes smallint NOT NULL,
@@ -36,13 +25,9 @@ CREATE TABLE "Festividade" (
 );
 
 
-ALTER TABLE diaderua."Festividade" OWNER TO postgres;
+ALTER TABLE diaderua.festividade OWNER TO postgres;
 
---
--- Name: LogradouroData; Type: TABLE; Schema: diaderua; Owner: postgres; Tablespace:
---
-
-CREATE TABLE "LogradouroData" (
+CREATE TABLE logradourodata (
     loda_id integer NOT NULL,
     loda_dia smallint NOT NULL,
     loda_mes smallint NOT NULL,
@@ -51,11 +36,7 @@ CREATE TABLE "LogradouroData" (
 );
 
 
-ALTER TABLE diaderua."LogradouroData" OWNER TO postgres;
-
---
--- Name: seq_festividade; Type: SEQUENCE; Schema: diaderua; Owner: postgres
---
+ALTER TABLE diaderua.logradourodata OWNER TO postgres;
 
 CREATE SEQUENCE seq_festividade
     START WITH 1
@@ -67,10 +48,6 @@ CREATE SEQUENCE seq_festividade
 
 ALTER TABLE diaderua.seq_festividade OWNER TO postgres;
 
---
--- Name: seq_logdata; Type: SEQUENCE; Schema: diaderua; Owner: postgres
---
-
 CREATE SEQUENCE seq_logdata
     START WITH 1
     INCREMENT BY 1
@@ -81,22 +58,8 @@ CREATE SEQUENCE seq_logdata
 
 ALTER TABLE diaderua.seq_logdata OWNER TO postgres;
 
---
--- Name: Festividade_pkey; Type: CONSTRAINT; Schema: diaderua; Owner: postgres; Tablespace:
---
+ALTER TABLE ONLY festividade
+    ADD CONSTRAINT festividade_pkey PRIMARY KEY (fest_id);
 
-ALTER TABLE ONLY "Festividade"
-    ADD CONSTRAINT "Festividade_pkey" PRIMARY KEY (fest_id);
-
-
---
--- Name: LogradouroData_pkey; Type: CONSTRAINT; Schema: diaderua; Owner: postgres; Tablespace:
---
-
-ALTER TABLE ONLY "LogradouroData"
-    ADD CONSTRAINT "LogradouroData_pkey" PRIMARY KEY (loda_id);
-
-
---
--- PostgreSQL database dump complete
---
+ALTER TABLE ONLY logradourodata
+    ADD CONSTRAINT logradourodata_pkey PRIMARY KEY (loda_id);

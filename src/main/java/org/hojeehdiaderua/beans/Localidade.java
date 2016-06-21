@@ -4,6 +4,15 @@ public class Localidade {
     private String cidade;
     private String uf;
 
+    public Localidade() {
+
+    }
+
+    public Localidade(String cidade, String uf) {
+        this.cidade = cidade;
+        this.uf = uf;
+    }
+
     public String getCidade() {
         return cidade;
     }
