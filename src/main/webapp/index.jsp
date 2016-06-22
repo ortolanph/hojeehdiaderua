@@ -21,9 +21,11 @@
                 <p>{{diaderua.resultado.diaSemana}}</p>
             </div>
 
+            <!--
             <p>Comemora-se nesse dia:</p>
             <p ng-repeat="festividade in diaderua.resultado.festividades" id="flavor">{{festividade}}</p>
             <p ng-hide="diaderua.resultado.festividades.length">Nenhuma festividade para esse dia triste</li>
+            -->
 
             <h2>Existem ruas com essa data em:</h2>
             <div id="cidade">
@@ -36,6 +38,9 @@
             <h3>Sobre</h3>
             <p>Este site foi construído por <a href="mailto:manutcloud@gmail.com">Paulo Henrique Ortolan</a>.</p>
             <p>Layout por <a href="mailto:teste.teste@gmail.com">Fabio Luis Ortolan</a>.</p>
+
+            <p>Outros projetos:</p>
+            <p><a href="http://randomweatherforecast.herokuapp.com/">Random Weather Forecast</a></p>
         </div>
     </body>
 </html>
