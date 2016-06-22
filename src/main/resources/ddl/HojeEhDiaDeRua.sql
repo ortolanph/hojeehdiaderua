@@ -16,7 +16,7 @@ SET default_tablespace = '';
 
 SET default_with_oids = false;
 
-CREATE TABLE festividade (
+CREATE TABLE diaderua.festividade (
     fest_id integer NOT NULL,
     fest_dia smallint NOT NULL,
     fest_mes smallint NOT NULL,
@@ -27,7 +27,7 @@ CREATE TABLE festividade (
 
 ALTER TABLE diaderua.festividade OWNER TO postgres;
 
-CREATE TABLE logradourodata (
+CREATE TABLE diaderua.logradourodata (
     loda_id integer NOT NULL,
     loda_dia smallint NOT NULL,
     loda_mes smallint NOT NULL,
@@ -38,7 +38,7 @@ CREATE TABLE logradourodata (
 
 ALTER TABLE diaderua.logradourodata OWNER TO postgres;
 
-CREATE SEQUENCE seq_festividade
+CREATE SEQUENCE diaderua.seq_festividade
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -48,7 +48,7 @@ CREATE SEQUENCE seq_festividade
 
 ALTER TABLE diaderua.seq_festividade OWNER TO postgres;
 
-CREATE SEQUENCE seq_logdata
+CREATE SEQUENCE diaderua.seq_logdata
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -58,8 +58,8 @@ CREATE SEQUENCE seq_logdata
 
 ALTER TABLE diaderua.seq_logdata OWNER TO postgres;
 
-ALTER TABLE ONLY festividade
+ALTER TABLE ONLY diaderua.festividade
     ADD CONSTRAINT festividade_pkey PRIMARY KEY (fest_id);
 
-ALTER TABLE ONLY logradourodata
+ALTER TABLE ONLY diaderua.logradourodata
     ADD CONSTRAINT logradourodata_pkey PRIMARY KEY (loda_id);
