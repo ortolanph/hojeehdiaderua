@@ -41,12 +41,13 @@ public class DiaDeRuaController {
 
     private ResultadoUtil<Calendario> resultadoUtil;
 
+    private static final DateTimeZone FUSO_HORARIO_SAO_PAULO = DateTimeZone.forID("America/Sao_Paulo");
+
     @RequestMapping(value = "/queRuaEhHoje", method = RequestMethod.GET)
     public
     @ResponseBody
     Resultado<Calendario> obterRuas() {
-        DateTimeZone agora = DateTimeZone.forID("America/Sao_Paulo");
-        LocalDate hoje = LocalDate.now(agora.toTimeZone().toZoneId());
+        LocalDate hoje = LocalDate.now(FUSO_HORARIO_SAO_PAULO.toTimeZone().toZoneId());
 
         List<LogradouroData> logradouroDatas = service.obterDia((byte) hoje.getDayOfMonth(), (byte) hoje.getMonth().getValue());
 
