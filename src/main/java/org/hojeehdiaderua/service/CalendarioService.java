@@ -1,10 +1,10 @@
 package org.hojeehdiaderua.service;
 
+import com.google.common.base.Strings;
+import com.google.common.collect.Lists;
 import com.google.maps.GeoApiContext;
 import com.google.maps.GeocodingApi;
-import com.google.maps.model.AddressComponent;
-import com.google.maps.model.AddressComponentType;
-import com.google.maps.model.GeocodingResult;
+import com.google.maps.model.*;
 import org.hojeehdiaderua.beans.Grafia;
 import org.hojeehdiaderua.entities.LogradouroData;
 import org.hojeehdiaderua.repositories.FestividadeRepository;
@@ -43,6 +43,8 @@ public class CalendarioService {
     private ExecucaoManager execucaoManager;
 
     public void obterNomesDeRuas(int dia, int mes, ExecucaoManager execucaoManager) {
+        String mesCorrente = monthConverter.apply(Month.of(mes));
+
         try {
             execucaoManager.adicionaLog("Obtendo todas as possibilidades de ruas");
             List<String> possibilidades = construirPossibilidades(dia, mes);
@@ -62,11 +64,25 @@ public class CalendarioService {
 
                     for (AddressComponent addressComponent : result.addressComponents) {
                         if (ehRota(addressComponent.types)) {
-                            execucaoManager.adicionaLog(String.format("Encontrou o logradouro %s...", addressComponent.longName));
+                            execucaoManager.adicionaLog(addressComponent.longName);
+
+                            // verifica se o mes esta contido no string da rua
+                            if(!addressComponent.longName.contains(mesCorrente)) {
+                                ehRua = false;
+                                break;
+                            }
+
+                            // verifica se o dia esta contido no string da rua
+                            if(!verificaSePossuiPeloMenosUmaDasGrafias(addressComponent.longName, dia)) {
+                                ehRua = false;
+                                break;
+                            }
+
                             logradouroData = new LogradouroData();
                             logradouroData.setDia((byte) dia);
                             logradouroData.setMes((byte) mes);
 
+                            // Se dia for menor do que 10, verificar se não existe a expressão vinte
                             if(dia < 10 && addressComponent.longName.contains("Vinte")) {
                                 ehRua = false;
                             } else {
@@ -75,13 +91,14 @@ public class CalendarioService {
                         }
 
                         if (ehCidade(addressComponent.types) && ehRua) {
-                            execucaoManager.adicionaLog(String.format("... na cidade %s ...", addressComponent.longName));
+                            execucaoManager.adicionaLog(addressComponent.longName);
                             logradouroData.setCidade(addressComponent.longName);
 
                         }
 
                         if (ehEstado(addressComponent.types) && ehRua) {
-                            execucaoManager.adicionaLog(String.format("... no estado %s - %s.", addressComponent.longName, addressComponent.shortName));
+                            execucaoManager.adicionaLog(addressComponent.longName);
+                            execucaoManager.adicionaLog(addressComponent.shortName);
                             logradouroData.setUf(addressComponent.shortName);
                             logradouros.add(logradouroData);
                         }
@@ -94,12 +111,26 @@ public class CalendarioService {
             logradouros
                     .stream()
                     .filter(l -> !todosLogradourosDestaData.contains(l))
+                    .filter(l -> verificarIntegridade(l))
                     .forEach(l -> logradouroDataRepository.saveAndFlush(l));
 
             execucaoManager.adicionaLog(logradouros.toString());
         } catch (Exception e) {
             execucaoManager.adicionaLog(e.getMessage());
         }
+    }
+
+    private boolean verificaSePossuiPeloMenosUmaDasGrafias(String logradouro, int dia) {
+        Grafia grafia = Grafia.getGrafiaPorDia(dia);
+
+        return Arrays.stream(grafia.getPossiveisGrafias()).anyMatch(g -> logradouro.contains(" " + g + " "));
+    }
+
+    private boolean verificarIntegridade(LogradouroData l) {
+        boolean cidadePreenchida = !Strings.isNullOrEmpty(l.getCidade());
+        boolean estadoPreenchido = !Strings.isNullOrEmpty(l.getUf());
+
+        return cidadePreenchida && estadoPreenchido;
     }
 
     private void loadAll(int dia, int mes) {
@@ -130,7 +161,7 @@ public class CalendarioService {
     private List<String> construirPossibilidades(int dia, int mes) {
         List<String> possibilidades = newArrayList();
 
-        String mesEscrito = String.format(" de %s", monthConverter.apply(Month.of(mes)));
+        String mesEscrito = String.format("de %s", monthConverter.apply(Month.of(mes)));
         Grafia grafia = Grafia.getGrafiaPorDia(dia);
 
         List<String> grafias = Arrays.asList(grafia.getPossiveisGrafias());

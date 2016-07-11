@@ -111,8 +111,6 @@ public class CalendarioController {
 
         execucaoManager.criarNovaExecucao();
 
-        execucaoManager.adicionaLog("Some information here");
-
         service.obterNomesDeRuas(dia, mes, execucaoManager);
 
         execucaoManager.finalizaExecucao();
