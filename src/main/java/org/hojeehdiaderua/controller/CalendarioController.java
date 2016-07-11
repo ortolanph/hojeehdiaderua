@@ -99,7 +99,7 @@ public class CalendarioController {
         return null;
     }
 
-    @RequestMapping(value = "/adicionaFestividade/{dia}/{mes}", method = RequestMethod.GET)
+    @RequestMapping(value = "/listaFestividades/{dia}/{mes}", method = RequestMethod.GET)
     public
     @ResponseBody
     Resultado<Execucao> listaFestividades(@PathVariable Integer dia, @PathVariable Integer mes) {

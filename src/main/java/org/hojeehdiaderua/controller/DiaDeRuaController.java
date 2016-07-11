@@ -9,6 +9,7 @@ import org.hojeehdiaderua.service.DayOfWeekConverter;
 import org.hojeehdiaderua.service.DiaDeRuaService;
 import org.hojeehdiaderua.service.MonthConverter;
 import org.hojeehdiaderua.utils.ResultadoUtil;
+import org.joda.time.DateTimeZone;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.time.LocalDate;
 import java.time.Month;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Function;
@@ -39,11 +41,13 @@ public class DiaDeRuaController {
 
     private ResultadoUtil<Calendario> resultadoUtil;
 
+    private static final DateTimeZone FUSO_HORARIO_SAO_PAULO = DateTimeZone.forID("America/Sao_Paulo");
+
     @RequestMapping(value = "/queRuaEhHoje", method = RequestMethod.GET)
     public
     @ResponseBody
     Resultado<Calendario> obterRuas() {
-        LocalDate hoje = LocalDate.now();
+        LocalDate hoje = LocalDate.now(FUSO_HORARIO_SAO_PAULO.toTimeZone().toZoneId());
 
         List<LogradouroData> logradouroDatas = service.obterDia((byte) hoje.getDayOfMonth(), (byte) hoje.getMonth().getValue());
 

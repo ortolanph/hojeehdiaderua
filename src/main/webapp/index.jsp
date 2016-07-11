@@ -36,11 +36,12 @@
 
         <div id="rodape">
             <h3>Sobre</h3>
-            <p>Este site foi construído por <a href="mailto:manutcloud@gmail.com">Paulo Henrique Ortolan</a>.</p>
+            <p>Este site foi construído por <a href="mailto:paulo.ortolan@gmail.com">Paulo Henrique Ortolan</a>.</p>
             <p>Layout por <a href="mailto:teste.teste@gmail.com">Fabio Luis Ortolan</a>.</p>
 
             <p>Outros projetos:</p>
             <p><a href="http://randomweatherforecast.herokuapp.com/">Random Weather Forecast</a></p>
+            <p><a href="http://mahousenshi.neocities.org/">Página de Fabio Ortolan</a></p>
         </div>
     </body>
 </html>
