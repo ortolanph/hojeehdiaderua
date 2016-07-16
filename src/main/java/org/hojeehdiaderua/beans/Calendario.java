@@ -8,7 +8,6 @@ public class Calendario {
     private String mes;
     private int ano;
     private List<Localidade> localidades;
-    private List<String> festividades;
 
     public int getDia() {
         return dia;
@@ -48,13 +47,5 @@ public class Calendario {
 
     public void setLocalidades(List<Localidade> localidades) {
         this.localidades = localidades;
-    }
-
-    public List<String> getFestividades() {
-        return festividades;
-    }
-
-    public void setFestividades(List<String> festividades) {
-        this.festividades = festividades;
     }
 }

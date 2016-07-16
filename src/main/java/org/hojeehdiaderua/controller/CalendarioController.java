@@ -23,9 +23,6 @@ import java.time.LocalDate;
 public class CalendarioController {
 
     @Autowired
-    private LogradouroDataRepository repository;
-
-    @Autowired
     private CalendarioService service;
 
     private ExecucaoManager execucaoManager;
@@ -50,60 +47,6 @@ public class CalendarioController {
         resultadoUtil = new ResultadoUtil<>();
 
         return resultadoUtil.comSucesso(execucao);
-    }
-
-    @RequestMapping(value = "/limpaBase", method = RequestMethod.GET)
-    public
-    @ResponseBody
-    Resultado<Execucao> limpaBase() {
-        resultadoUtil = new ResultadoUtil<>();
-
-        execucaoManager = new ExecucaoManager();
-
-        execucaoManager.adicionaLog("Contagem de registros antes de deletar tudo: " + repository.count());
-        execucaoManager.adicionaLog("Deletando tudo");
-        repository.deleteAll();
-        execucaoManager.adicionaLog("Contagem de registros após deletar tudo: " + repository.count());
-
-        execucaoManager.finalizaExecucao();
-
-        return resultadoUtil.comSucesso(execucaoManager.obtemRelatorioExecucao());
-    }
-
-    @RequestMapping(value = "/limpaDia/{dia}/{mes}", method = RequestMethod.GET)
-    public
-    @ResponseBody
-    Resultado<Execucao> limpaDia(@PathVariable Integer dia, @PathVariable Integer mes) {
-        resultadoUtil = new ResultadoUtil<>();
-
-        execucaoManager = new ExecucaoManager();
-
-        execucaoManager.adicionaLog("Contagem de registros antes de deletar registros: " + repository.count());
-        execucaoManager.adicionaLog("Deletando registros do dia " + dia + "/" + mes);
-        LogradouroData logradouroData = new LogradouroData();
-        logradouroData.setDia(dia.byteValue());
-        logradouroData.setMes(mes.byteValue());
-
-        repository.delete(logradouroData);
-        execucaoManager.adicionaLog("Contagem de registros após deletar registros: " + repository.count());
-
-        execucaoManager.finalizaExecucao();
-
-        return resultadoUtil.comSucesso(execucaoManager.obtemRelatorioExecucao());
-    }
-
-    @RequestMapping(value = "/adicionaFestividade", method = RequestMethod.POST, consumes = {"application/json;charset=UTF-8"})
-    public
-    @ResponseBody
-    Resultado<Execucao> insereFestividade() {
-        return null;
-    }
-
-    @RequestMapping(value = "/listaFestividades/{dia}/{mes}", method = RequestMethod.GET)
-    public
-    @ResponseBody
-    Resultado<Execucao> listaFestividades(@PathVariable Integer dia, @PathVariable Integer mes) {
-        return null;
     }
 
     private Execucao obterInformacoesDia(Integer dia, Integer mes) {

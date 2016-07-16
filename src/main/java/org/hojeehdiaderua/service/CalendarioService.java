@@ -1,13 +1,13 @@
 package org.hojeehdiaderua.service;
 
 import com.google.common.base.Strings;
-import com.google.common.collect.Lists;
 import com.google.maps.GeoApiContext;
 import com.google.maps.GeocodingApi;
-import com.google.maps.model.*;
+import com.google.maps.model.AddressComponent;
+import com.google.maps.model.AddressComponentType;
+import com.google.maps.model.GeocodingResult;
 import org.hojeehdiaderua.beans.Grafia;
 import org.hojeehdiaderua.entities.LogradouroData;
-import org.hojeehdiaderua.repositories.FestividadeRepository;
 import org.hojeehdiaderua.repositories.LogradouroDataRepository;
 import org.hojeehdiaderua.utils.ExecucaoManager;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +15,10 @@ import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Service;
 
 import java.time.Month;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Set;
 
 import static com.google.common.collect.Lists.newArrayList;
 import static com.google.common.collect.Sets.newHashSet;
@@ -25,9 +28,6 @@ public class CalendarioService {
 
     @Autowired
     private LogradouroDataRepository logradouroDataRepository;
-
-    @Autowired
-    private FestividadeRepository festividadeRepository;
 
     @Autowired
     private GeoApiContext geoApiContext;
@@ -170,10 +170,14 @@ public class CalendarioService {
         tipos.forEach(
                 t -> grafias.forEach(
                         g -> possibilidades.add(
-                                String.format("%s %s %s", t, g, mesEscrito).trim()
+                                String.format("%s %s %s", t, g, mesEscrito)
                         )
                 )
         );
+
+        grafias.forEach(g -> possibilidades.add(
+                String.format("%s %s ", g, mesEscrito)
+        ));
 
         return possibilidades;
     }

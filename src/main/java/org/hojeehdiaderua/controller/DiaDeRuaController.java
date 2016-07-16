@@ -66,8 +66,6 @@ public class DiaDeRuaController {
 
         List<String> festividades = new ArrayList<>();
 
-        calendario.setFestividades(festividades);
-
         resultadoUtil = new ResultadoUtil<>();
 
         return resultadoUtil.comSucesso(calendario);
