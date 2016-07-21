@@ -27,6 +27,12 @@ public class LogradouroData {
     @Column(name="loda_uf")
     private String uf;
 
+    @Column(name="loda_latitude")
+    private double latitude;
+
+    @Column(name="loda_longitude")
+    private double longitude;
+
     public long getId() {
         return id;
     }
@@ -67,6 +73,22 @@ public class LogradouroData {
         this.uf = uf;
     }
 
+    public double getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(double latitude) {
+        this.latitude = latitude;
+    }
+
+    public double getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(double longitude) {
+        this.longitude = longitude;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -92,6 +114,8 @@ public class LogradouroData {
                 .add("mes", mes)
                 .add("cidade", cidade)
                 .add("uf", uf)
+                .add("latitude", latitude)
+                .add("longitude", longitude)
                 .toString();
     }
 }

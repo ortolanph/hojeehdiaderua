@@ -78,16 +78,19 @@ public class CalendarioService {
                                 break;
                             }
 
-                            logradouroData = new LogradouroData();
-                            logradouroData.setDia((byte) dia);
-                            logradouroData.setMes((byte) mes);
-
                             // Se dia for menor do que 10, verificar se não existe a expressão vinte
                             if(dia < 10 && addressComponent.longName.contains("Vinte")) {
                                 ehRua = false;
+                                break;
                             } else {
                                 ehRua = true;
                             }
+
+                            logradouroData = new LogradouroData();
+                            logradouroData.setDia((byte) dia);
+                            logradouroData.setMes((byte) mes);
+                            logradouroData.setLatitude(result.geometry.location.lat);
+                            logradouroData.setLongitude(result.geometry.location.lng);
                         }
 
                         if (ehCidade(addressComponent.types) && ehRua) {
@@ -170,13 +173,13 @@ public class CalendarioService {
         tipos.forEach(
                 t -> grafias.forEach(
                         g -> possibilidades.add(
-                                String.format("%s %s %s", t, g, mesEscrito)
+                                String.format("%s %s %s", t, g, mesEscrito).trim()
                         )
                 )
         );
 
         grafias.forEach(g -> possibilidades.add(
-                String.format("%s %s ", g, mesEscrito)
+                String.format("%s %s ", g, mesEscrito).trim()
         ));
 
         return possibilidades;

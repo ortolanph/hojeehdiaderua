@@ -60,7 +60,11 @@ public class DiaDeRuaController {
 
         List<Localidade> localidades = newArrayList();
 
-        logradouroDatas.forEach(l -> localidades.add(new Localidade(l.getCidade(), l.getUf())));
+        logradouroDatas.forEach(
+                l -> localidades.add(
+                        new Localidade(l.getCidade(), l.getUf(), l.getLatitude(), l.getLongitude())
+                )
+        );
 
         calendario.setLocalidades(localidades);
 
