@@ -7,10 +7,8 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.web.csrf.CsrfFilter;
-import org.springframework.security.web.csrf.CsrfToken;
-import org.springframework.security.web.csrf.CsrfTokenRepository;
-import org.springframework.security.web.csrf.HttpSessionCsrfTokenRepository;
+import org.springframework.security.web.csrf.*;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.web.filter.OncePerRequestFilter;
 import org.springframework.web.util.WebUtils;
 
@@ -41,12 +39,28 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     public void configure(HttpSecurity http) throws Exception {
         http
-                .authorizeRequests().antMatchers("/hojeehdiaderua/**").permitAll()
-                .antMatchers("/admin/**").access("hasRole('ROLE_ADMIN')")
-                .and().httpBasic()
-                .and().formLogin()
-                .and().csrf().csrfTokenRepository(csrfTokenRepository())
-                .and().addFilterAfter(csrfHeaderFilter(), CsrfFilter.class);
+                .authorizeRequests()
+                    .antMatchers("/hojeehdiaderua/**")
+                    .permitAll()
+                .antMatchers("/admin/**")
+                    .access("hasRole('ROLE_ADMIN')")
+                .and()
+                    .httpBasic()
+                .and()
+                    .formLogin()
+                .and()
+                    .logout()
+                        //.logoutRequestMatcher(new AntPathRequestMatcher("/admin/logout"))
+                        .logoutUrl("/logout")
+                        .deleteCookies("JSESSIONID")
+                        .invalidateHttpSession(true)
+                        .logoutSuccessUrl("/index.jsp")
+                        .addLogoutHandler(new CsrfLogoutHandler(csrfTokenRepository()))
+                .and()
+                    .csrf()
+                    .csrfTokenRepository(csrfTokenRepository())
+                .and()
+                    .addFilterAfter(csrfHeaderFilter(), CsrfFilter.class);
     }
 
     private CsrfTokenRepository csrfTokenRepository() {
