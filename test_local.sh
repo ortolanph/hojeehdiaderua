@@ -8,12 +8,7 @@ WAR_FILE="target/hojeehdiaderua.war"
 
 clear
 
-mvn clean install
-
-export $DATABASE_URL
-export $GOOGLE_MAPS_API_KEY
-export $JOB_USER
-export $JOB_PASSWORD
+mvn dependency:resolve clean install
 
 clear
 

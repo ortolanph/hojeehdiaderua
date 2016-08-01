@@ -42,6 +42,11 @@ public class CalendarioService {
 
     private ExecucaoManager execucaoManager;
 
+    private static final String VINTE_EXTENSO = "Vinte";
+    private static final String TRINTA_EXTENSO = "Trinta";
+    public static final int PRIMEIRO_DIA = 1;
+    public static final int DEZ = 10;
+
     public void obterNomesDeRuas(int dia, int mes, ExecucaoManager execucaoManager) {
         String mesCorrente = monthConverter.apply(Month.of(mes));
 
@@ -79,7 +84,15 @@ public class CalendarioService {
                             }
 
                             // Se dia for menor do que 10, verificar se não existe a expressão vinte
-                            if(dia < 10 && addressComponent.longName.contains("Vinte")) {
+                            if(dia < DEZ && addressComponent.longName.contains(VINTE_EXTENSO)) {
+                                ehRua = false;
+                                break;
+                            } else {
+                                ehRua = true;
+                            }
+
+                            // Se dia é 1, não pode vir com Trinta
+                            if(dia == PRIMEIRO_DIA && addressComponent.longName.contains(TRINTA_EXTENSO)) {
                                 ehRua = false;
                                 break;
                             } else {

@@ -10,10 +10,7 @@ import org.hojeehdiaderua.utils.ExecucaoManager;
 import org.hojeehdiaderua.utils.ResultadoUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
 
@@ -29,7 +26,8 @@ public class CalendarioController {
 
     private ResultadoUtil<Execucao> resultadoUtil;
 
-    @RequestMapping(value = "/processaDiaAtual", method = RequestMethod.POST)
+
+    @PostMapping(value="/processaDiaAtual")
     public
     @ResponseBody
     Resultado<Execucao> obtemDiaAtual() {
@@ -38,7 +36,7 @@ public class CalendarioController {
         return obterDia(hoje.getDayOfMonth(), hoje.getMonthValue());
     }
 
-    @RequestMapping(value = "/processaDia/{dia}/{mes}", method = RequestMethod.GET)
+    @GetMapping("/processaDia/{dia}/{mes}")
     public
     @ResponseBody
     Resultado<Execucao> obterDia(@PathVariable Integer dia, @PathVariable Integer mes) {

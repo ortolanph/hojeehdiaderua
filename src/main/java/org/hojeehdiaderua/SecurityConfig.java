@@ -1,6 +1,7 @@
 package org.hojeehdiaderua;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -51,11 +52,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                     .logout()
                         //.logoutRequestMatcher(new AntPathRequestMatcher("/admin/logout"))
-                        .logoutUrl("/logout")
+                        .logoutUrl("/admin/logout")
                         .deleteCookies("JSESSIONID")
                         .invalidateHttpSession(true)
                         .logoutSuccessUrl("/index.jsp")
-                        .addLogoutHandler(new CsrfLogoutHandler(csrfTokenRepository()))
+                        //.addLogoutHandler(new CsrfLogoutHandler(csrfTokenRepository))
                 .and()
                     .csrf()
                     .csrfTokenRepository(csrfTokenRepository())
@@ -63,7 +64,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                     .addFilterAfter(csrfHeaderFilter(), CsrfFilter.class);
     }
 
-    private CsrfTokenRepository csrfTokenRepository() {
+    @Bean
+    public CsrfTokenRepository csrfTokenRepository() {
         HttpSessionCsrfTokenRepository repository =
                 new HttpSessionCsrfTokenRepository();
 
