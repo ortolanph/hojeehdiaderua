@@ -7,12 +7,13 @@ import java.time.Instant;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static com.google.common.collect.Lists.newArrayList;
 
 public class ExecucaoManager {
 
-    private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("hh:mm");
+    private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("kk:mm:ss.A");
     private List<String> log;
     private Execucao execucao;
     private Instant inicio;
@@ -41,7 +42,7 @@ public class ExecucaoManager {
     }
 
     public Execucao obtemRelatorioExecucao() {
-        execucao.setLog(newArrayList(log));
+        execucao.setLog(newArrayList(log).stream().distinct().collect(Collectors.toList()));
         return execucao;
     }
 

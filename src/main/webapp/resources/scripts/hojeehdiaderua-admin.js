@@ -6,7 +6,16 @@ angular.module('hojeEhDiaDeRuaAppAdmin', [])
     $httpProvider.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 }])
 
-.controller('diaDeRuaAdminController', ['$scope', '$http', '$location', 'diaDeRuaURL', ($scope, $http, $location, diaDeRuaURL) => {
+.controller('diaDeRuaAdminController', ['$scope', '$http', '$window', 'diaDeRuaURL', ($scope, $http, $window, diaDeRuaURL) => {
+
+    $http.get(diaDeRuaURL.url + "/obtemDiasProcessadosNoMes")
+        .success((data) => {
+            $scope.diasProcessados = data.resultado;
+        })
+        .error((data) => {
+            $scope.diasProcessados = data.resultado;
+        });
+
 
     $scope.processaDiaAtual = () => {
         $http.post(diaDeRuaURL.url + '/processaDiaAtual')
@@ -25,10 +34,10 @@ angular.module('hojeEhDiaDeRuaAppAdmin', [])
     $scope.logout = () => {
         $http.post('logout', {})
             .success(() => {
-                $location.path('index.jsp').replace();
+                $window.location.href = "/";
              })
             .error((data) => {
-                $location.path('error.jsp').replace();
+                $window.location.href = 'error.jsp';
              });
     };
 }])

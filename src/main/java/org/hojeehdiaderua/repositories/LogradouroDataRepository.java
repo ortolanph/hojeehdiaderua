@@ -17,4 +17,8 @@ public interface LogradouroDataRepository extends JpaRepository<LogradouroData, 
     @Query("SELECT l FROM LogradouroData l WHERE " +
             "l.dia = :dia and l.mes = :mes")
     List<LogradouroData> findByDiaMes(@Param("dia") byte dia, @Param("mes") byte mes);
+
+    @Query("SELECT l.dia FROM LogradouroData l WHERE " +
+            "l.mes = :mes")
+    List<Integer> listAllProcessedDaysInMonth(@Param("mes") byte mes);
 }

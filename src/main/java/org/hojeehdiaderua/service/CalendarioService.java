@@ -197,4 +197,8 @@ public class CalendarioService {
 
         return possibilidades;
     }
+
+    public List<Integer> obterDiasProcessados(int mes) {
+        return logradouroDataRepository.listAllProcessedDaysInMonth((byte)mes);
+    }
 }

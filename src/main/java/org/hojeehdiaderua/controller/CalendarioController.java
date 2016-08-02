@@ -13,6 +13,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping(value = "/admin/*",
@@ -45,6 +47,19 @@ public class CalendarioController {
         resultadoUtil = new ResultadoUtil<>();
 
         return resultadoUtil.comSucesso(execucao);
+    }
+
+    @GetMapping("/obtemDiasProcessadosNoMes")
+    public
+    @ResponseBody
+    Resultado<List<Integer>> obterDiasProcessadosNoMes() {
+        LocalDate hoje = LocalDate.now();
+
+        List<Integer> diasProcessados = service.obterDiasProcessados(hoje.getMonthValue());
+
+        ResultadoUtil<List<Integer>> resultadoUtilLocal = new ResultadoUtil<>();
+
+        return resultadoUtilLocal.comSucesso(diasProcessados.stream().distinct().collect(Collectors.toList()));
     }
 
     private Execucao obterInformacoesDia(Integer dia, Integer mes) {
