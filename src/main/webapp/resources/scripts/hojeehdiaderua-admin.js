@@ -8,19 +8,21 @@ angular.module('hojeEhDiaDeRuaAppAdmin', [])
 
 .controller('diaDeRuaAdminController', ['$scope', '$http', '$window', 'diaDeRuaURL', ($scope, $http, $window, diaDeRuaURL) => {
 
-    $http.get(diaDeRuaURL.url + "/obtemDiasProcessadosNoMes")
-        .success((data) => {
-            $scope.diasProcessados = data.resultado;
-        })
-        .error((data) => {
-            $scope.diasProcessados = data.resultado;
-        });
-
+    $scope.obterDiasProcessados = () => {
+        $http.get(diaDeRuaURL.url + "/obtemDiasProcessadosNoMes")
+            .success((data) => {
+                $scope.diasProcessados = data.resultado;
+            })
+            .error((data) => {
+                $scope.diasProcessados = data.resultado;
+            });
+    };
 
     $scope.processaDiaAtual = () => {
         $http.post(diaDeRuaURL.url + '/processaDiaAtual')
             .success((data) => {
                 $scope.logProcessaDiaAtual = data;
+                $scope.obterDiasProcessados();
             });
     };
 
@@ -28,6 +30,7 @@ angular.module('hojeEhDiaDeRuaAppAdmin', [])
         $http.get(diaDeRuaURL.url + '/processaDia/' + $scope.dia + '/' + $scope.mes)
             .success((data) => {
                 $scope.logProcessaDia = data;
+                $scope.obterDiasProcessados();
             })
     };
 
@@ -40,4 +43,6 @@ angular.module('hojeEhDiaDeRuaAppAdmin', [])
                 $window.location.href = 'error.jsp';
              });
     };
+
+    $scope.obterDiasProcessados();
 }])

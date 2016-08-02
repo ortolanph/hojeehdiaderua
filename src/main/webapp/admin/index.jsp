@@ -43,11 +43,11 @@
                 <form role="form" ng-submit="processaDia()">
                     <div class="form-group">
                         <label for="dia">Dia</label>
-                        <input type="number" class="form-control" id="dia" min="1" max="31" step="1" ng-model="dia" placeholder="dd"/>
+                        <input type="number" class="form-control" id="dia" min="1" max="31" step="1" ng-model="dia" placeholder="Dias (1-31)"/>
                     </div>
                     <div class="form-group">
                         <label for="mes">Mês</label>
-                        <input type="number" class="form-control" id="mes" min="1" max="12" step="1" ng-model="mes" placeholder="mm"/>
+                        <input type="number" class="form-control" id="mes" min="1" max="12" step="1" ng-model="mes" placeholder="Meses (1-12)"/>
                     </div>
                     <input type="submit" class="btn btn-default" value="Processa informações para dia {{dia}}/{{mes}}" />
                 </form>
