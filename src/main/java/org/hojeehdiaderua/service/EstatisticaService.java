@@ -6,6 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 import static com.google.common.collect.Lists.newArrayList;
@@ -21,16 +24,7 @@ public class EstatisticaService {
 
         List<MesRua> ruasPorAno = logradouroDataRepository.estatisticaAnualRuasPorAno();
 
-        IntStream
-                .rangeClosed(1, 12)
-                .forEach(i -> result.add(findMonthOfZero(ruasPorAno)));
-
         return result;
     }
-
-    private Long findMonthOfZero(List<MesRua> ruasPorAno) {
-        return null;
-    }
-
 
 }
