@@ -49,13 +49,13 @@ public class CalendarioController {
         return resultadoUtil.comSucesso(execucao);
     }
 
-    @GetMapping("/obtemDiasProcessadosNoMes")
+    @GetMapping("/obtemDiasProcessadosNoMes/{mes}")
     public
     @ResponseBody
-    Resultado<List<Integer>> obterDiasProcessadosNoMes() {
+    Resultado<List<Integer>> obterDiasProcessadosNoMes(@PathVariable Integer mes) {
         LocalDate hoje = LocalDate.now();
 
-        List<Integer> diasProcessados = service.obterDiasProcessados(hoje.getMonthValue());
+        List<Integer> diasProcessados = service.obterDiasProcessados(mes.byteValue());
 
         ResultadoUtil<List<Integer>> resultadoUtilLocal = new ResultadoUtil<>();
 

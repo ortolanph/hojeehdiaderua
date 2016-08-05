@@ -1,0 +1,38 @@
+[WARNING] 
+[WARNING] Some problems were encountered while building the effective settings
+[WARNING] Unknown attribute 'schemaLocation' for tag 'settings' (position: START_TAG seen ...rg/SETTINGS/1.1.0 http://maven.apache.org/xsd/settings-1.1.0.xsd">... @2:114)  @ /home/27975700819/.m2/settings.xml, line 2, column 114
+[WARNING] 
+[INFO] Scanning for projects...
+[INFO]                                                                         
+[INFO] ------------------------------------------------------------------------
+[INFO] Building hojeehdiaderua 1.0-SNAPSHOT
+[INFO] ------------------------------------------------------------------------
+[INFO] 
+[INFO] --- maven-clean-plugin:2.5:clean (default-clean) @ hojeehdiaderua ---
+[INFO] Deleting /home/27975700819/docs/workspaces/hojeehdiaderua/target
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time: 0.311 s
+[INFO] Finished at: 2016-06-29T09:34:11-03:00
+[INFO] Final Memory: 5M/77M
+[INFO] ------------------------------------------------------------------------
+[WARNING] 
+[WARNING] Some problems were encountered while building the effective settings
+[WARNING] Unknown attribute 'schemaLocation' for tag 'settings' (position: START_TAG seen ...rg/SETTINGS/1.1.0 http://maven.apache.org/xsd/settings-1.1.0.xsd">... @2:114)  @ /home/27975700819/.m2/settings.xml, line 2, column 114
+[WARNING] 
+[INFO] Scanning for projects...
+[INFO]                                                                         
+[INFO] ------------------------------------------------------------------------
+[INFO] Building hojeehdiaderua 1.0-SNAPSHOT
+[INFO] ------------------------------------------------------------------------
+[INFO] 
+[INFO] --- maven-clean-plugin:2.5:clean (default-clean) @ hojeehdiaderua ---
+[INFO] Deleting /home/27975700819/docs/workspaces/hojeehdiaderua/target
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time: 0.292 s
+[INFO] Finished at: 2016-08-02T14:05:39-03:00
+[INFO] Final Memory: 5M/77M
+[INFO] ------------------------------------------------------------------------

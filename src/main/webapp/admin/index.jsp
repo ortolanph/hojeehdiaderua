@@ -15,14 +15,38 @@
 
             <fieldset>
                 <legend>Dias processados no mês</legend>
+
+                <form role="form">
+                    <div class="form-group">
+                        <label for="choosemonth">Selecione um mês:</label>
+                        <select id="choosemonth" ng-model="month" ng-change="obterDiasProcessados(month)" class="form-control">
+                            <option value="1">Janeiro</option>
+                            <option value="2">Fevereiro</option>
+                            <option value="3">Março</option>
+                            <option value="4">Abril</option>
+                            <option value="5">Maio</option>
+                            <option value="6">Junho</option>
+                            <option value="7">Julho</option>
+                            <option value="8">Agosto</option>
+                            <option value="9">Setembro</option>
+                            <option value="10">Outubro</option>
+                            <option value="11">Novembro</option>
+                            <option value="12">Dezembro</option>
+                        </select>
+                    </div>
+                </form>
+
                 <table class="table">
                     <tbody>
                         <tr>
                             <td ng-repeat="dia in diasProcessados">{{dia}}</td>
+                            <td ng-hide="diasProcessados.length">Nenhum dia processado para esse mês...</td>
                         </tr>
                     </tbody>
                 </table>
             </fieldset>
+
+            <br/>
 
             <fieldset>
                 <legend>Processa dia atual</legend>
@@ -37,6 +61,8 @@
                     <p ng-hide="logProcessaDiaAtual.resultado.log.length">Nenhum log no momento</p>
                 </details>
             </fieldset>
+
+            <br/>
 
             <fieldset>
                 <legend>Processa outro dia</legend>

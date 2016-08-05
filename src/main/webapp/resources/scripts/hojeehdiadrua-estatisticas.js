@@ -1,4 +1,4 @@
-angular.module('hojeEhDiaDeRuaAppAdmin', [])
+angular.module('hojeEhDiaDeRuaAppEstatisticas', [])
 
 .constant('diaDeRuaURL', {'url': '/admin'})
 
@@ -6,7 +6,7 @@ angular.module('hojeEhDiaDeRuaAppAdmin', [])
     $httpProvider.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 }])
 
-.controller('diaDeRuaAdminController', ['$scope', '$http', '$window', 'diaDeRuaURL', ($scope, $http, $window, diaDeRuaURL) => {
+.controller('diaDeRuaStatController', ['$scope', '$http', '$window', 'diaDeRuaURL', ($scope, $http, $window, diaDeRuaURL) => {
     var currentDate = new Date();
     $scope.month = currentDate.getMonth() + 1;
 

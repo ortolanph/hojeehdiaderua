@@ -3,8 +3,8 @@
 <html ng-app="hojeEhDiaDeRuaApp">
     <head>
         <link href="resources/style/hojeehdiaderua.css" rel="stylesheet" type="text/css" />
-		    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0-rc.0/angular.min.js"></script>
-		    <script src="resources/scripts/hojeehdiaderua.js"></script>
+	    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0-rc.0/angular.min.js"></script>
+	    <script src="resources/scripts/hojeehdiaderua.js"></script>
         <title>Hoje é Dia de Rua!</title>
     </head>
     <body ng-controller="diaDeRuaController">
