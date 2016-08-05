@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html ng-app="myModule">
+
+<head>
+    <meta charset="utf-8" />
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular.min.js"></script>
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+</head>
+
+<body ng-controller="myController">
+    <div id="container" style="width: 70%">Placeholder for chart</div>
+    <script>
+        angular.module('myModule', [])
+        		.controller('myController', function ($scope) {
+    				Highcharts.chart('container', {
+                        title: {
+                            text: 'Ruas por ano',
+                            style: {"fontWeight": "bold", "fontSize": "20px"}
+                        },
+                        exporting: {
+                            enabled: "true"
+                        },
+    				    xAxis: {
+    				        categories: ['Janeiro', 'Fevereiro', 'Março', 'Abril',
+                                         'Maio', 'Junho', 'Julho', 'Agosto',
+                                         'Setembro', 'Outubro', 'Novembro', 'Dezembro'],
+                            title: {
+                                text: 'Meses',
+                                style: {"font-weight": "bold"}
+                            },
+                            lineColor: "#000",
+                            tickColor: "#000"
+    				    },
+                        yAxis: {
+                            title: {
+                                text: 'Quantidade de Ruas',
+                                style: {"font-weight": "bold"}
+                            }
+                        },
+    				    series: [{
+                            type: "area",
+                            connectEnds: true,
+                            color: "#c0c0c0",
+                            borderColor: "#000",
+    				        data: [400, 200, 400, 500,
+                                   600, 300, 300, 100,
+                                   800, 700, 100, 600],
+                            name: "Ruas"
+    				    }]
+    				});
+        		});
+    </script>
+</body>
+
+</html>
