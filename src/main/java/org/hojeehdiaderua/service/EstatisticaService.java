@@ -24,7 +24,32 @@ public class EstatisticaService {
 
         List<MesRua> ruasPorAno = logradouroDataRepository.estatisticaAnualRuasPorAno();
 
+        IntStream
+                .rangeClosed(1, 12)
+                .forEach(i -> result.add(
+                    getRuasPorMes(ruasPorAno, i)
+                    )
+                );
+
         return result;
+    }
+
+    private Long getRuasPorMes(List<MesRua> mesRuas, int mes) {
+        return mesRuas.stream().filter(mr -> mr.getMes() == mes).findFirst().orElse(mesRuaZerado()).getRuas();
+    }
+
+    private MesRua mesRuaZerado() {
+        return new MesRua() {
+            @Override
+            public byte getMes() {
+                return 0;
+            }
+
+            @Override
+            public long getRuas() {
+                return 0;
+            }
+        };
     }
 
 }
