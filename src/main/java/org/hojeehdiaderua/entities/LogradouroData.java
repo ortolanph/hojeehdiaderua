@@ -12,25 +12,25 @@ public class LogradouroData {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_loda")
-    @Column(name="loda_id")
+    @Column(name = "loda_id")
     private long id;
 
-    @Column(name="loda_dia")
+    @Column(name = "loda_dia")
     private Byte dia;
 
-    @Column(name="loda_mes")
+    @Column(name = "loda_mes")
     private Byte mes;
 
-    @Column(name="loda_cidade")
+    @Column(name = "loda_cidade")
     private String cidade;
 
-    @Column(name="loda_uf")
+    @Column(name = "loda_uf")
     private String uf;
 
-    @Column(name="loda_latitude")
+    @Column(name = "loda_latitude")
     private double latitude;
 
-    @Column(name="loda_longitude")
+    @Column(name = "loda_longitude")
     private double longitude;
 
     public long getId() {

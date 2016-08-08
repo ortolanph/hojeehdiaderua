@@ -10,8 +10,8 @@ import org.springframework.data.repository.query.Param;
 import java.util.List;
 
 @RepositoryDefinition(
-        domainClass=org.hojeehdiaderua.entities.LogradouroData.class,
-        idClass=java.lang.Long.class)
+        domainClass = org.hojeehdiaderua.entities.LogradouroData.class,
+        idClass = java.lang.Long.class)
 public interface LogradouroDataRepository extends JpaRepository<LogradouroData, Long> {
 
     @Query("SELECT l FROM LogradouroData l WHERE " +
@@ -22,7 +22,20 @@ public interface LogradouroDataRepository extends JpaRepository<LogradouroData, 
             "l.mes = :mes")
     List<Integer> listAllProcessedDaysInMonth(@Param("mes") byte mes);
 
-    @Query("SELECT l.mes as mes, count(l.mes) as ruas FROM LogradouroData l GROUP BY l.mes ORDER BY l.mes ASC")
-    List<MesRua> estatisticaAnualRuasPorAno();
 
+    /*
+    Pesquisas para estatísticas
+     */
+    /* Estatísticas anuais */
+    // Contagem: Total de Cidades
+    @Query("SELECT count(l.cidade) as total_cidades FROM LogradouroData l GROUP BY l.cidade")
+    Integer estatisticaAnualTotalCidade();
+
+    // Contagem: Total de Registros
+    @Query("SELECT count(l.cidade) as total_cidades FROM LogradouroData l GROUP BY l.cidade")
+    Integer estatisticaAnualTotalRegistros();
+
+    // Gráfico: Ruas por Meses
+    @Query("SELECT l.mes as mes, count(l.mes) as ruas FROM LogradouroData l GROUP BY l.mes ORDER BY l.mes ASC")
+    List<MesRua> estatisticaAnualRuasPorMeses();
 }

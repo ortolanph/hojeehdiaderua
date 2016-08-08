@@ -26,18 +26,14 @@ import static com.google.common.collect.Lists.newArrayList;
         produces = {"application/json;charset=UTF-8"})
 public class DiaDeRuaController {
 
+    private static final DateTimeZone FUSO_HORARIO_SAO_PAULO = DateTimeZone.forID("America/Sao_Paulo");
     @Autowired
     private DayOfWeekConverter dayOfWeekConverter;
-
     @Autowired
     private MonthConverter monthConverter;
-
     @Autowired
     private DiaDeRuaService service;
-
     private ResultadoUtil<Calendario> resultadoUtil;
-
-    private static final DateTimeZone FUSO_HORARIO_SAO_PAULO = DateTimeZone.forID("America/Sao_Paulo");
 
     @GetMapping(value = "/queRuaEhHoje")
     public

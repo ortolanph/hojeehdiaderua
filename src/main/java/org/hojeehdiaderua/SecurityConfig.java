@@ -8,8 +8,10 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.web.csrf.*;
-import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+import org.springframework.security.web.csrf.CsrfFilter;
+import org.springframework.security.web.csrf.CsrfToken;
+import org.springframework.security.web.csrf.CsrfTokenRepository;
+import org.springframework.security.web.csrf.HttpSessionCsrfTokenRepository;
 import org.springframework.web.filter.OncePerRequestFilter;
 import org.springframework.web.util.WebUtils;
 
@@ -41,25 +43,25 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     public void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                    .antMatchers("/hojeehdiaderua/**")
-                    .permitAll()
+                .antMatchers("/hojeehdiaderua/**")
+                .permitAll()
                 .antMatchers("/admin/**")
-                    .access("hasRole('ROLE_ADMIN')")
+                .access("hasRole('ROLE_ADMIN')")
                 .and()
-                    .httpBasic()
+                .httpBasic()
                 .and()
-                    .formLogin()
+                .formLogin()
                 .and()
-                    .logout()
-                        .logoutUrl("/admin/logout")
-                        .deleteCookies("JSESSIONID")
-                        .invalidateHttpSession(true)
-                        .logoutSuccessUrl("/index.jsp")
+                .logout()
+                .logoutUrl("/admin/logout")
+                .deleteCookies("JSESSIONID")
+                .invalidateHttpSession(true)
+                .logoutSuccessUrl("/index.jsp")
                 .and()
-                    .csrf()
-                    .csrfTokenRepository(csrfTokenRepository())
+                .csrf()
+                .csrfTokenRepository(csrfTokenRepository())
                 .and()
-                    .addFilterAfter(csrfHeaderFilter(), CsrfFilter.class);
+                .addFilterAfter(csrfHeaderFilter(), CsrfFilter.class);
     }
 
     @Bean

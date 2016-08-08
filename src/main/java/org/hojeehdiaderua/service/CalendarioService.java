@@ -26,26 +26,36 @@ import static com.google.common.collect.Sets.newHashSet;
 @Service
 public class CalendarioService {
 
-    @Autowired
-    private LogradouroDataRepository logradouroDataRepository;
-
-    @Autowired
-    private GeoApiContext geoApiContext;
-
-    @Autowired
-    private Environment environment;
-
-    @Autowired
-    private MonthConverter monthConverter;
-
-    private List<LogradouroData> todosLogradourosDestaData;
-
-    private ExecucaoManager execucaoManager;
-
-    private static final String VINTE_EXTENSO = "Vinte";
-    private static final String TRINTA_EXTENSO = "Trinta";
     public static final int PRIMEIRO_DIA = 1;
     public static final int DEZ = 10;
+    private static final String VINTE_EXTENSO = "Vinte";
+    private static final String TRINTA_EXTENSO = "Trinta";
+    @Autowired
+    private LogradouroDataRepository logradouroDataRepository;
+    @Autowired
+    private GeoApiContext geoApiContext;
+    @Autowired
+    private Environment environment;
+    @Autowired
+    private MonthConverter monthConverter;
+    private List<LogradouroData> todosLogradourosDestaData;
+    private ExecucaoManager execucaoManager;
+
+    public static boolean ehCidade(AddressComponentType[] types) {
+        return contemTipo(AddressComponentType.ADMINISTRATIVE_AREA_LEVEL_2, types)
+                && contemTipo(AddressComponentType.POLITICAL, types);
+    }
+
+    public static boolean ehEstado(AddressComponentType[] types) {
+        return contemTipo(AddressComponentType.ADMINISTRATIVE_AREA_LEVEL_1, types)
+                && contemTipo(AddressComponentType.POLITICAL, types);
+    }
+
+    private static boolean contemTipo(AddressComponentType tipo, AddressComponentType[] tipos) {
+        List<AddressComponentType> types = new ArrayList<>(Arrays.asList(tipos));
+
+        return types.contains(tipo);
+    }
 
     public void obterNomesDeRuas(int dia, int mes, ExecucaoManager execucaoManager) {
         String mesCorrente = monthConverter.apply(Month.of(mes));
@@ -59,7 +69,7 @@ public class CalendarioService {
             execucaoManager.adicionaLog("Pesquisando no Google");
             Set<LogradouroData> logradouros = newHashSet();
 
-            for(String possibilidade : possibilidades) {
+            for (String possibilidade : possibilidades) {
                 GeocodingResult[] results = GeocodingApi.geocode(geoApiContext,
                         String.format("%s, Brasil", possibilidade)).await();
 
@@ -72,19 +82,19 @@ public class CalendarioService {
                             execucaoManager.adicionaLog(addressComponent.longName);
 
                             // verifica se o mes esta contido no string da rua
-                            if(!addressComponent.longName.contains(mesCorrente)) {
+                            if (!addressComponent.longName.contains(mesCorrente)) {
                                 ehRua = false;
                                 break;
                             }
 
                             // verifica se o dia esta contido no string da rua
-                            if(!verificaSePossuiPeloMenosUmaDasGrafias(addressComponent.longName, dia)) {
+                            if (!verificaSePossuiPeloMenosUmaDasGrafias(addressComponent.longName, dia)) {
                                 ehRua = false;
                                 break;
                             }
 
                             // Se dia for menor do que 10, verificar se não existe a expressão vinte
-                            if(dia < DEZ && addressComponent.longName.contains(VINTE_EXTENSO)) {
+                            if (dia < DEZ && addressComponent.longName.contains(VINTE_EXTENSO)) {
                                 ehRua = false;
                                 break;
                             } else {
@@ -92,7 +102,7 @@ public class CalendarioService {
                             }
 
                             // Se dia é 1, não pode vir com Trinta
-                            if(dia == PRIMEIRO_DIA && addressComponent.longName.contains(TRINTA_EXTENSO)) {
+                            if (dia == PRIMEIRO_DIA && addressComponent.longName.contains(TRINTA_EXTENSO)) {
                                 ehRua = false;
                                 break;
                             } else {
@@ -150,28 +160,12 @@ public class CalendarioService {
     }
 
     private void loadAll(int dia, int mes) {
-        todosLogradourosDestaData = logradouroDataRepository.findByDiaMes((byte)dia, (byte)mes);
+        todosLogradourosDestaData = logradouroDataRepository.findByDiaMes((byte) dia, (byte) mes);
         todosLogradourosDestaData.forEach(l -> l.setId(0));
     }
 
     private boolean ehRota(AddressComponentType[] types) {
         return contemTipo(AddressComponentType.ROUTE, types);
-    }
-
-    public static boolean ehCidade(AddressComponentType[] types) {
-        return contemTipo(AddressComponentType.ADMINISTRATIVE_AREA_LEVEL_2, types)
-                && contemTipo(AddressComponentType.POLITICAL, types);
-    }
-
-    public static boolean ehEstado(AddressComponentType[] types) {
-        return contemTipo(AddressComponentType.ADMINISTRATIVE_AREA_LEVEL_1, types)
-                && contemTipo(AddressComponentType.POLITICAL, types);
-    }
-
-    private static boolean contemTipo(AddressComponentType tipo, AddressComponentType[] tipos) {
-        List<AddressComponentType> types = new ArrayList<>(Arrays.asList(tipos));
-
-        return types.contains(tipo);
     }
 
     private List<String> construirPossibilidades(int dia, int mes) {
@@ -199,6 +193,6 @@ public class CalendarioService {
     }
 
     public List<Integer> obterDiasProcessados(int mes) {
-        return logradouroDataRepository.listAllProcessedDaysInMonth((byte)mes);
+        return logradouroDataRepository.listAllProcessedDaysInMonth((byte) mes);
     }
 }

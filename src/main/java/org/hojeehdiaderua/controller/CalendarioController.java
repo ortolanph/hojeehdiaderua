@@ -2,10 +2,7 @@ package org.hojeehdiaderua.controller;
 
 import org.hojeehdiaderua.beans.Execucao;
 import org.hojeehdiaderua.beans.Resultado;
-import org.hojeehdiaderua.entities.LogradouroData;
-import org.hojeehdiaderua.repositories.LogradouroDataRepository;
 import org.hojeehdiaderua.service.CalendarioService;
-import org.hojeehdiaderua.service.DiaDeRuaService;
 import org.hojeehdiaderua.utils.ExecucaoManager;
 import org.hojeehdiaderua.utils.ResultadoUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +26,7 @@ public class CalendarioController {
     private ResultadoUtil<Execucao> resultadoUtil;
 
 
-    @PostMapping(value="/processaDiaAtual")
+    @PostMapping(value = "/processaDiaAtual")
     public
     @ResponseBody
     Resultado<Execucao> obtemDiaAtual() {

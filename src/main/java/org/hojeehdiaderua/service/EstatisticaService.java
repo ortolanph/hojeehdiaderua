@@ -6,9 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Map;
-import java.util.function.Function;
-import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 import static com.google.common.collect.Lists.newArrayList;
@@ -19,16 +16,16 @@ public class EstatisticaService {
     @Autowired
     private LogradouroDataRepository logradouroDataRepository;
 
-    public List<Long> estatisticaAnualRuasPorAno() {
+    public List<Long> estatisticaAnualRuasPorMeses() {
         List<Long> result = newArrayList();
 
-        List<MesRua> ruasPorAno = logradouroDataRepository.estatisticaAnualRuasPorAno();
+        List<MesRua> ruasPorAno = logradouroDataRepository.estatisticaAnualRuasPorMeses();
 
         IntStream
                 .rangeClosed(1, 12)
                 .forEach(i -> result.add(
-                    getRuasPorMes(ruasPorAno, i)
-                    )
+                        getRuasPorMes(ruasPorAno, i)
+                        )
                 );
 
         return result;

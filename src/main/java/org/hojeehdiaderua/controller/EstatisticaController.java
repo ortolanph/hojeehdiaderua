@@ -35,7 +35,7 @@ public class EstatisticaController {
     Resultado<List<Long>> getEstatisticasAnuais() {
         resultadoUtil = new ResultadoUtil<>();
 
-        List<Long> dados = service.estatisticaAnualRuasPorAno();
+        List<Long> dados = service.estatisticaAnualRuasPorMeses();
 
         return resultadoUtil.comSucesso(dados);
     }
