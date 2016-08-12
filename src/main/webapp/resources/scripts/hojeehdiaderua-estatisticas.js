@@ -41,7 +41,7 @@ angular.module('hojeEhDiaDeRuaAppEstatisticas', ["highcharts-ng"])
         .success((data) => {
             console.log(data.resultado);
             $scope.ruasPorMes.chartConfig.series = [{
-                "data": data.resultado,
+                "data": data.resultado.ruasPorAno,
                 "name": "Ruas",
                 "color": "#c0c0c0",
                 "borderColor": "#ff0",

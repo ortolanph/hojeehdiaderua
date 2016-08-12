@@ -22,20 +22,7 @@ public interface LogradouroDataRepository extends JpaRepository<LogradouroData, 
             "l.mes = :mes")
     List<Integer> listAllProcessedDaysInMonth(@Param("mes") byte mes);
 
-
-    /*
-    Pesquisas para estatísticas
-     */
-    /* Estatísticas anuais */
-    // Contagem: Total de Cidades
-    @Query("SELECT count(l.cidade) as total_cidades FROM LogradouroData l GROUP BY l.cidade")
-    Integer estatisticaAnualTotalCidade();
-
-    // Contagem: Total de Registros
-    @Query("SELECT count(l.cidade) as total_cidades FROM LogradouroData l GROUP BY l.cidade")
-    Integer estatisticaAnualTotalRegistros();
-
-    // Gráfico: Ruas por Meses
+    // Gráfico Anual: Ruas por Meses
     @Query("SELECT l.mes as mes, count(l.mes) as ruas FROM LogradouroData l GROUP BY l.mes ORDER BY l.mes ASC")
     List<MesRua> estatisticaAnualRuasPorMeses();
 }

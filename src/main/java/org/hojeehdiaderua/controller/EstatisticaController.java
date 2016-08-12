@@ -1,5 +1,6 @@
 package org.hojeehdiaderua.controller;
 
+import org.hojeehdiaderua.beans.EstatisticasAnuais;
 import org.hojeehdiaderua.beans.Resultado;
 import org.hojeehdiaderua.service.EstatisticaService;
 import org.hojeehdiaderua.utils.ResultadoUtil;
@@ -20,7 +21,7 @@ public class EstatisticaController {
     @Autowired
     private EstatisticaService service;
 
-    private ResultadoUtil<List<Long>> resultadoUtil;
+    private ResultadoUtil<EstatisticasAnuais> resultadoUtil;
 
     @GetMapping("/mensal/{mes}")
     public
@@ -32,10 +33,10 @@ public class EstatisticaController {
     @GetMapping("/anual")
     public
     @ResponseBody
-    Resultado<List<Long>> getEstatisticasAnuais() {
+    Resultado<EstatisticasAnuais> getEstatisticasAnuais() {
         resultadoUtil = new ResultadoUtil<>();
 
-        List<Long> dados = service.estatisticaAnualRuasPorMeses();
+        EstatisticasAnuais dados = service.estatisticaAnualRuasPorMeses();
 
         return resultadoUtil.comSucesso(dados);
     }

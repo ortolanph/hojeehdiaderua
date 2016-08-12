@@ -2,7 +2,7 @@ package org.hojeehdiaderua.estatistica;
 
 public interface MesRua {
 
-    public byte getMes();
+    byte getMes();
 
-    public long getRuas();
+    long getRuas();
 }
