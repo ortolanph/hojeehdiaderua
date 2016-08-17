@@ -19,6 +19,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import static com.google.common.collect.Lists.newArrayList;
 import static com.google.common.collect.Sets.newHashSet;
@@ -193,6 +194,10 @@ public class CalendarioService {
     }
 
     public List<Integer> obterDiasProcessados(int mes) {
-        return logradouroDataRepository.listAllProcessedDaysInMonth((byte) mes);
+        return logradouroDataRepository
+                .listAllProcessedDaysInMonth((byte) mes)
+                .stream()
+                .sorted((d1, d2) -> d1 - d2)
+                .collect(Collectors.toList());
     }
 }
