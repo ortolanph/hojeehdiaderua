@@ -21,17 +21,19 @@
                 <p>{{diaderua.resultado.diaSemana}}</p>
             </div>
 
-            <h2>Existem ruas com essa data em:</h2>
-            <div id="cidade">
-                <p ng-repeat="localidade in diaderua.resultado.localidades">
-                    <span>
-                        <a
-                            href="https://www.google.com/maps/@{{localidade.latitude}},{{localidade.longitude}},19z"
-                            target="_blank">
-                            {{localidade.cidade}} - {{localidade.uf}}
-                        </a>
-                    </span>
-                </p>
+            <div ng-show="diaderua.resultado.localidades.length">
+                <h2>Existe(m) {{diaderua.resultado.localidades.length}} rua(s) com essa data em:</h2>
+                <div id="cidade">
+                    <p ng-repeat="localidade in diaderua.resultado.localidades">
+                        <span>
+                            <a
+                                href="https://www.google.com/maps/@{{localidade.latitude}},{{localidade.longitude}},19z"
+                                target="_blank">
+                                {{localidade.cidade}} - {{localidade.uf}}
+                            </a>
+                        </span>
+                    </p>
+                </div>
             </div>
             <p ng-hide="diaderua.resultado.localidades.length">Infelizmente nenhuma cidade decidiu batizar uma rua com essa data...</p>
         </div>
