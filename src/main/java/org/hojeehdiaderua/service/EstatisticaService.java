@@ -1,15 +1,12 @@
 package org.hojeehdiaderua.service;
 
 import org.hojeehdiaderua.beans.EstatisticasAnuais;
-import org.hojeehdiaderua.entities.LogradouroData;
 import org.hojeehdiaderua.estatistica.MesRua;
 import org.hojeehdiaderua.repositories.LogradouroDataRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 import static com.google.common.collect.Lists.newArrayList;

@@ -194,10 +194,13 @@ public class CalendarioService {
     }
 
     public List<Integer> obterDiasProcessados(int mes) {
-        return logradouroDataRepository
-                .listAllProcessedDaysInMonth((byte) mes)
-                .stream()
-                .sorted((d1, d2) -> d1 - d2)
-                .collect(Collectors.toList());
+        return
+                logradouroDataRepository
+                        .listAllProcessedDaysInMonth((byte) mes)
+                        .stream()
+                        .mapToInt(Byte::intValue)
+                        .boxed()
+                        .sorted((d1, d2) -> d1 - d2)
+                        .collect(Collectors.toList());
     }
 }
