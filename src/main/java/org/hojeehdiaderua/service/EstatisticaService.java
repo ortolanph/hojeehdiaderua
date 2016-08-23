@@ -1,6 +1,7 @@
 package org.hojeehdiaderua.service;
 
 import org.hojeehdiaderua.beans.EstatisticasAnuais;
+import org.hojeehdiaderua.entities.LogradouroData;
 import org.hojeehdiaderua.estatistica.MesRua;
 import org.hojeehdiaderua.repositories.LogradouroDataRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +26,10 @@ public class EstatisticaService {
         return estatisticasAnuais;
     }
 
+    public List<LogradouroData> all() {
+        return logradouroDataRepository.findAll();
+    }
+
     private List<Long> getRuasPorAno() {
         List<Long> result = newArrayList();
 
@@ -32,10 +37,7 @@ public class EstatisticaService {
 
         IntStream
                 .rangeClosed(1, 12)
-                .forEach(i -> result.add(
-                        getRuasPorMes(ruasPorAno, i)
-                        )
-                );
+                .forEach(i -> result.add(getRuasPorMes(ruasPorAno, i)));
 
         return result;
     }
