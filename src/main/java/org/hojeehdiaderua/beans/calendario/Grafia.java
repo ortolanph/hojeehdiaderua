@@ -1,4 +1,4 @@
-package org.hojeehdiaderua.beans;
+package org.hojeehdiaderua.beans.calendario;
 
 import java.util.Arrays;
 

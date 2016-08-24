@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html ng-app="hojeEhDiaDeRuaAppAdmin">
     <head>
-		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0-rc.0/angular.min.js"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js"></script>
 		<script src="../resources/scripts/hojeehdiaderua-admin.js"></script>
 		<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
         <title>Hoje é Dia de Rua! - Admin</title>

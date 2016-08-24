@@ -1,7 +1,7 @@
 package org.hojeehdiaderua.controller;
 
-import org.hojeehdiaderua.beans.Execucao;
 import org.hojeehdiaderua.beans.Resultado;
+import org.hojeehdiaderua.beans.admin.Execucao;
 import org.hojeehdiaderua.service.CalendarioService;
 import org.hojeehdiaderua.utils.ExecucaoManager;
 import org.hojeehdiaderua.utils.ResultadoUtil;

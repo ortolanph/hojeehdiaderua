@@ -1,6 +1,6 @@
 package org.hojeehdiaderua.utils;
 
-import org.hojeehdiaderua.beans.Execucao;
+import org.hojeehdiaderua.beans.admin.Execucao;
 
 import java.time.Duration;
 import java.time.Instant;

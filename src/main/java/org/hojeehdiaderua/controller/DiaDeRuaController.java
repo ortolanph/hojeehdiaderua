@@ -1,8 +1,8 @@
 package org.hojeehdiaderua.controller;
 
-import org.hojeehdiaderua.beans.Calendario;
-import org.hojeehdiaderua.beans.Localidade;
 import org.hojeehdiaderua.beans.Resultado;
+import org.hojeehdiaderua.beans.calendario.Calendario;
+import org.hojeehdiaderua.beans.calendario.Localidade;
 import org.hojeehdiaderua.entities.LogradouroData;
 import org.hojeehdiaderua.service.DayOfWeekConverter;
 import org.hojeehdiaderua.service.DiaDeRuaService;

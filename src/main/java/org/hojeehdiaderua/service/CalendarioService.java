@@ -6,7 +6,7 @@ import com.google.maps.GeocodingApi;
 import com.google.maps.model.AddressComponent;
 import com.google.maps.model.AddressComponentType;
 import com.google.maps.model.GeocodingResult;
-import org.hojeehdiaderua.beans.Grafia;
+import org.hojeehdiaderua.beans.calendario.Grafia;
 import org.hojeehdiaderua.entities.LogradouroData;
 import org.hojeehdiaderua.repositories.LogradouroDataRepository;
 import org.hojeehdiaderua.utils.ExecucaoManager;

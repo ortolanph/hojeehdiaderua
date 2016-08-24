@@ -1,0 +1,19 @@
+Feature Planning
+
+Version | Idea
+--------|------------------------------------------------------------------
+   1    | Statistics
+        | * Year
+        | * Month
+--------|------------------------------------------------------------------
+   2    | spring-boot conversion
+--------|------------------------------------------------------------------
+   3    | Date navigarion
+        | * Screen navigation
+        | * URL navigation
+        | * Share URL
+--------|------------------------------------------------------------------
+   4    | Error reporting
+        | * User side
+        | * Admin side
+        | Rebuild admin side

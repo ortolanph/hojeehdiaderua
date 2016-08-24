@@ -1,8 +1,7 @@
 package org.hojeehdiaderua.controller;
 
-import org.hojeehdiaderua.beans.EstatisticasAnuais;
 import org.hojeehdiaderua.beans.Resultado;
-import org.hojeehdiaderua.entities.LogradouroData;
+import org.hojeehdiaderua.beans.estatisticas.Estatisticas;
 import org.hojeehdiaderua.service.EstatisticaService;
 import org.hojeehdiaderua.utils.ResultadoUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,10 +12,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import java.text.DecimalFormat;
-import java.text.DecimalFormatSymbols;
-import java.util.Locale;
-
 @Controller
 @RequestMapping(value = "/estatistica/*",
         produces = {"application/json;charset=UTF-8"})
@@ -25,7 +20,7 @@ public class EstatisticaController {
     @Autowired
     private EstatisticaService service;
 
-    private ResultadoUtil<EstatisticasAnuais> resultadoUtil;
+    private ResultadoUtil<Estatisticas> resultadoUtil;
 
     @GetMapping("/mensal/{mes}")
     public
@@ -37,10 +32,10 @@ public class EstatisticaController {
     @GetMapping("/anual")
     public
     @ResponseBody
-    Resultado<EstatisticasAnuais> getEstatisticasAnuais() {
+    Resultado<Estatisticas> getEstatisticasAnuais() {
         resultadoUtil = new ResultadoUtil<>();
 
-        EstatisticasAnuais dados = service.estatisticaAnualRuasPorMeses();
+        Estatisticas dados = service.estatisticaAnual();
 
         return resultadoUtil.comSucesso(dados);
     }
@@ -53,21 +48,10 @@ public class EstatisticaController {
 
         service
                 .all()
-                .stream()
-                .sorted((l1, l2) -> l1.getDia() - l2.getDia())
-                .sorted((l1, l2) -> l1.getMes() - l2.getMes())
-                .forEach(l -> builder.append(buildInsert(l)).append('\n'));
+                .forEach(d -> builder.append(d));
 
         return builder.toString();
     }
 
-    private String buildInsert(LogradouroData logradouroData) {
-        return String.format(Locale.ROOT, "insert into diaderua.logradourodata values (nextval('diaderua.seq_logdata'), %d, %d, '%s', '%s', %.10f, %.10f);",
-                logradouroData.getDia(),
-                logradouroData.getMes(),
-                logradouroData.getCidade(),
-                logradouroData.getUf(),
-                logradouroData.getLatitude(),
-                logradouroData.getLongitude());
-    }
+
 }

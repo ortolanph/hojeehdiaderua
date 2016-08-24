@@ -8,7 +8,7 @@ import java.util.function.Function;
 @Service
 public class MonthConverter implements Function<Month, String> {
 
-    private static String[] MESES = new String[]{
+    private static final String[] MESES = new String[]{
             "Janeiro", "Fevereiro", "Março",
             "Abril", "Maio", "Junho",
             "Julho", "Agosto", "Setembro",

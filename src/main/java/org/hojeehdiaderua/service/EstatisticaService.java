@@ -1,14 +1,19 @@
 package org.hojeehdiaderua.service;
 
-import org.hojeehdiaderua.beans.EstatisticasAnuais;
+import org.hojeehdiaderua.beans.estatisticas.CategoriaSerie;
+import org.hojeehdiaderua.beans.estatisticas.Estatisticas;
+import org.hojeehdiaderua.beans.estatisticas.NomeEstadoComparator;
 import org.hojeehdiaderua.entities.LogradouroData;
-import org.hojeehdiaderua.estatistica.MesRua;
 import org.hojeehdiaderua.repositories.LogradouroDataRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.Month;
 import java.util.List;
-import java.util.stream.IntStream;
+import java.util.Locale;
+import java.util.Map;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import static com.google.common.collect.Lists.newArrayList;
 
@@ -18,46 +23,134 @@ public class EstatisticaService {
     @Autowired
     private LogradouroDataRepository logradouroDataRepository;
 
-    public EstatisticasAnuais estatisticaAnualRuasPorMeses() {
-        EstatisticasAnuais estatisticasAnuais = new EstatisticasAnuais();
+    @Autowired
+    private MonthConverter monthConverter;
 
-        estatisticasAnuais.setRuasPorAno(getRuasPorAno());
+    public Estatisticas estatisticaAnual() {
+        Estatisticas estatisticas = new Estatisticas();
 
-        return estatisticasAnuais;
+        List<LogradouroData> todos = logradouroDataRepository.findAll();
+
+        estatisticas.setQuantidadeDeRuas(todos.size());
+        estatisticas.setQuantidadeDeCidades(quantidadeDeCidades(todos.stream()));
+        estatisticas.setRuasPorMes(ruasPorMes(todos.stream()));
+        estatisticas.setRuasPorUF(ruasPorUF(todos.stream()));
+        estatisticas.setRuasPorDia(ruasPorDia(todos.stream()));
+
+        return estatisticas;
     }
 
-    public List<LogradouroData> all() {
-        return logradouroDataRepository.findAll();
+    public List<String> all() {
+        return logradouroDataRepository
+                .findAll()
+                .stream()
+                .sorted((l1, l2) -> l1.getDia() - l2.getDia())
+                .sorted((l1, l2) -> l1.getMes() - l2.getMes())
+                .map(l -> buildInsert(l))
+                .collect(Collectors.toList());
     }
 
-    private List<Long> getRuasPorAno() {
-        List<Long> result = newArrayList();
-
-        List<MesRua> ruasPorAno = logradouroDataRepository.estatisticaAnualRuasPorMeses();
-
-        IntStream
-                .rangeClosed(1, 12)
-                .forEach(i -> result.add(getRuasPorMes(ruasPorAno, i)));
-
-        return result;
+    private String buildInsert(LogradouroData logradouroData) {
+        return String.format(Locale.ROOT, "insert into diaderua.logradourodata values (nextval('diaderua.seq_logdata'), %d, %d, '%s', '%s', %.10f, %.10f);\n",
+                logradouroData.getDia(),
+                logradouroData.getMes(),
+                logradouroData.getCidade(),
+                logradouroData.getUf(),
+                logradouroData.getLatitude(),
+                logradouroData.getLongitude());
     }
 
-    private Long getRuasPorMes(List<MesRua> mesRuas, int mes) {
-        return mesRuas.stream().filter(mr -> mr.getMes() == mes).findFirst().orElse(mesRuaZerado()).getRuas();
+    private long quantidadeDeCidades(Stream<LogradouroData> logradouroDataStream) {
+        return logradouroDataStream.map(l -> l.getCidade()).distinct().count();
     }
 
-    private MesRua mesRuaZerado() {
-        return new MesRua() {
-            @Override
-            public byte getMes() {
-                return 0;
-            }
+    private CategoriaSerie<Byte, Long> ruasPorDia(Stream<LogradouroData> logradouroDataStream) {
+        Map<Byte, Long> ruasPorDia =
+                logradouroDataStream
+                        .map(l -> l.getDia())
+                        .collect(
+                                Collectors.groupingBy(
+                                        d -> d,
+                                        Collectors.counting()
+                                )
+                        );
 
-            @Override
-            public long getRuas() {
-                return 0;
-            }
-        };
+        List<Byte> dias =
+                ruasPorDia
+                        .keySet()
+                        .stream()
+                        .sorted((d1, d2) -> d1 - d2)
+                        .collect(Collectors.toList());
+
+        List<Long> ruas = newArrayList();
+
+        dias.forEach(d -> ruas.add(ruasPorDia.getOrDefault(d, 0L)));
+
+        CategoriaSerie<Byte, Long> categoriaSerie = new CategoriaSerie<>();
+
+        categoriaSerie.setCategorias(dias);
+        categoriaSerie.setSeries(ruas);
+
+        return categoriaSerie;
     }
 
+    private CategoriaSerie<String, Long> ruasPorMes(Stream<LogradouroData> logradouroDataStream) {
+        Map<String, Long> ruasPorMes =
+                logradouroDataStream
+                        .map(l -> l.getMes())
+                        .collect(
+                                Collectors.groupingBy(
+                                        m -> monthConverter.apply(Month.of(m.intValue())),
+                                        Collectors.counting()
+                                )
+                        );
+
+        List<String> meses =
+                ruasPorMes
+                        .keySet()
+                        .stream()
+                        .sorted(new NomeEstadoComparator())
+                        .collect(Collectors.toList());
+
+        List<Long> ruas = newArrayList();
+
+        meses.forEach(b -> ruas.add(ruasPorMes.getOrDefault(b, 0L)));
+
+        CategoriaSerie<String, Long> categoriaSerie = new CategoriaSerie<>();
+
+        categoriaSerie.setCategorias(meses);
+        categoriaSerie.setSeries(ruas);
+
+        return categoriaSerie;
+    }
+
+    private CategoriaSerie<String, Long> ruasPorUF(Stream<LogradouroData> logradouroDataStream) {
+        Map<String, Long> ruasPorUF =
+                logradouroDataStream
+                        .map(l -> l.getUf())
+                        .collect(
+                                Collectors.groupingBy(
+                                        u -> u,
+                                        Collectors.counting()
+                                )
+                        );
+
+        List<String> ufs =
+                ruasPorUF
+                        .keySet()
+                        .stream()
+                        .sorted((k1, k2) -> k1.compareTo(k2))
+                        .collect(Collectors.toList());
+
+        List<Long> ruas = newArrayList();
+
+        ufs.forEach(u -> ruas.add(ruasPorUF.getOrDefault(u, 0L)));
+
+        CategoriaSerie<String, Long> categoriaSerie = new CategoriaSerie<>();
+
+        categoriaSerie.setCategorias(ufs);
+        categoriaSerie.setSeries(ruas);
+
+        return categoriaSerie;
+    }
 }
