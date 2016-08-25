@@ -1,4 +1,4 @@
-angular.module('hojeEhDiaDeRuaAppEstatisticas', ["highcharts-ng", "ngRoute"])
+angular.module('hojeEhDiaDeRuaAppEstatisticas', ["highcharts-ng"]) //, "ngRoute"])
 
 .constant('$diaDeRuaURL', {'url': '/estatistica'})
 
@@ -98,12 +98,8 @@ angular.module('hojeEhDiaDeRuaAppEstatisticas', ["highcharts-ng", "ngRoute"])
 }])
 
 .controller('diaDeRuaStatController', ['$scope', 'estatisticas', ($scope, estatisticas) => {
-
     estatisticas.anuais().then((response) => {
         var dados = response.data;
-
-        console.log(dados.resultado.ruasPorDia);
-
         $scope.quantidadeDeRuas = dados.resultado.quantidadeDeRuas;
         $scope.quantidadeDeCidades = dados.resultado.quantidadeDeCidades;
         $scope.ruasPorMes = estatisticas.construirConfiguracaoRuasPorMes(dados.resultado.ruasPorMes);
