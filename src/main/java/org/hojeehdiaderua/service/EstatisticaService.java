@@ -54,7 +54,7 @@ public class EstatisticaService {
         return String.format(Locale.ROOT, "insert into diaderua.logradourodata values (nextval('diaderua.seq_logdata'), %d, %d, '%s', '%s', %.10f, %.10f);\n",
                 logradouroData.getDia(),
                 logradouroData.getMes(),
-                logradouroData.getCidade(),
+                prepararCidade(logradouroData.getCidade()),
                 logradouroData.getUf(),
                 logradouroData.getLatitude(),
                 logradouroData.getLongitude());
