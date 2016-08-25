@@ -1,5 +1,7 @@
 package org.hojeehdiaderua.beans.estatisticas;
 
+import java.util.List;
+
 public class Estatisticas {
 
     private long quantidadeDeRuas;
@@ -7,6 +9,7 @@ public class Estatisticas {
     private CategoriaSerie<String, Long> ruasPorMes;
     private CategoriaSerie<String, Long> ruasPorUF;
     private CategoriaSerie<Byte, Long> ruasPorDia;
+    private List<CidadeRua> topTenCidadeRua;
 
     public long getQuantidadeDeRuas() {
         return quantidadeDeRuas;
@@ -48,4 +51,11 @@ public class Estatisticas {
         this.ruasPorDia = ruasPorDia;
     }
 
+    public List<CidadeRua> getTopTenCidadeRua() {
+        return topTenCidadeRua;
+    }
+
+    public void setTopTenCidadeRua(List<CidadeRua> topTenCidadeRua) {
+        this.topTenCidadeRua = topTenCidadeRua;
+    }
 }

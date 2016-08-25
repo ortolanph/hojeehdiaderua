@@ -1,6 +1,7 @@
 package org.hojeehdiaderua.service;
 
 import org.hojeehdiaderua.beans.estatisticas.CategoriaSerie;
+import org.hojeehdiaderua.beans.estatisticas.CidadeRua;
 import org.hojeehdiaderua.beans.estatisticas.Estatisticas;
 import org.hojeehdiaderua.beans.estatisticas.NomeEstadoComparator;
 import org.hojeehdiaderua.entities.LogradouroData;
@@ -178,5 +179,26 @@ public class EstatisticaService {
         return categoriaSerie;
     }
 
+    private void topTenCidadeRua(Stream<LogradouroData> logradouroDataStream) {
+        Map<String, Long> cidadeRua =
+                logradouroDataStream
+                        .map(l -> l.getCidade())
+                        .collect(
+                                Collectors.groupingBy(
+                                        c -> c,
+                                        Collectors.counting()
+                                )
+                        );
 
+        List<CidadeRua> cidadeRuaList =
+                cidadeRua
+                        .keySet()
+                        .stream()
+                        .map(c -> new CidadeRua(c, cidadeRua.get(c)))
+                        .sorted((c1, c2) -> c1.getTotal().intValue() - c2.getTotal().intValue())
+                        .sorted((c1, c2) -> c1.getCidade().compareTo(c2.getCidade()))
+                        .collect(Collectors.toList());
+
+
+    }
 }
