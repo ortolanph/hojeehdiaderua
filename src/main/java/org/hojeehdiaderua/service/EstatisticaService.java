@@ -60,6 +60,10 @@ public class EstatisticaService {
                 logradouroData.getLongitude());
     }
 
+    private String prepararCidade(String cidade) {
+        return cidade.replaceAll("'", "''");
+    }
+
     private long quantidadeDeCidades(Stream<LogradouroData> logradouroDataStream) {
         return logradouroDataStream.map(l -> l.getCidade()).distinct().count();
     }
