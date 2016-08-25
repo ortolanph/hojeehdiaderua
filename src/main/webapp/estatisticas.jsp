@@ -12,9 +12,9 @@
         <h1>Hoje é Dia de Rua! - Estatísticas</h1>
         <p>Quantidade de Ruas: {{quantidadeDeRuas}}</p>
         <p>Quantidade de Cidades: {{quantidadeDeCidades}}</p>
-        <p>ruasPorMes: {{ruasPorMes}}</p>
-        <p>ruasPorUF: {{ruasPorUF}}</p>
-        <p>ruasPorDia: {{ruasPorDia}}</p>
+        <p>{{dados.resultado.ruasPorDia}}</p>
         <highchart id="graficoRuasPorMes" config="ruasPorMes" style="width:75%"></highchart>
+        <highchart id="graficoRuasPorUF" config="ruasPorUF" style="width:75%"></highchart>
+        <highchart id="graficoRuasPorDia" config="ruasPorDia" style="width:75%"></highchart>
     </body>
 </html>
