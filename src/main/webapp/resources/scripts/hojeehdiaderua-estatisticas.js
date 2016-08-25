@@ -1,9 +1,24 @@
-angular.module('hojeEhDiaDeRuaAppEstatisticas', ["highcharts-ng"]) //, "ngRoute"])
+angular.module('hojeEhDiaDeRuaAppEstatisticas', ["highcharts-ng", "ngRoute"])
 
 .constant('$diaDeRuaURL', {'url': '/estatistica'})
 
-.config(['$httpProvider', ($httpProvider) => {
+.config(['$httpProvider', '$routeProvider', function($httpProvider, $routeProvider) {
     $httpProvider.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
+	var currentDate = new Date();
+	var currentMonth = currentDate.getUTCMonth() + 1;
+
+    $routeProvider.
+        when('/mensal/:mes', {
+            templateUrl: 'estatisticas-mes.jsp',
+            controller: 'mensalController'
+        }).
+        when('/anual', {
+            templateUrl: 'estatisticas-anual.jsp',
+            controller: 'anualController'
+        }).
+        otherwise({
+            redirectTo: '/mensal/' + currentMonth
+        });
 }])
 
 .service('estatisticas', ['$http', '$diaDeRuaURL', function($http, $diaDeRuaURL) {
@@ -97,13 +112,29 @@ angular.module('hojeEhDiaDeRuaAppEstatisticas', ["highcharts-ng"]) //, "ngRoute"
     }
 }])
 
-.controller('diaDeRuaStatController', ['$scope', 'estatisticas', ($scope, estatisticas) => {
-    estatisticas.anuais().then((response) => {
+.controller('anualController', ['$scope', 'estatisticas', function($scope, estatisticas) {
+     estatisticas.anuais().then((response) => {
+         var dados = response.data;
+         $scope.quantidadeDeRuas = dados.resultado.quantidadeDeRuas;
+         $scope.quantidadeDeCidades = dados.resultado.quantidadeDeCidades;
+         $scope.ruasPorMes = estatisticas.construirConfiguracaoRuasPorMes(dados.resultado.ruasPorMes);
+         $scope.ruasPorUF = estatisticas.construirConfiguracaoRuasPorUF(dados.resultado.ruasPorUF);
+         $scope.ruasPorDia = estatisticas.construirConfiguracaoRuasPorDia(dados.resultado.ruasPorDia);
+     });
+}])
+
+.controller('mensalController', ['$scope', '$routeParams', 'estatisticas', function($scope, $routeParams, estatisticas) {
+    var mes = $routeParams.mes;
+
+    estatisticas.mensais(mes).then((response) => {
         var dados = response.data;
         $scope.quantidadeDeRuas = dados.resultado.quantidadeDeRuas;
         $scope.quantidadeDeCidades = dados.resultado.quantidadeDeCidades;
-        $scope.ruasPorMes = estatisticas.construirConfiguracaoRuasPorMes(dados.resultado.ruasPorMes);
         $scope.ruasPorUF = estatisticas.construirConfiguracaoRuasPorUF(dados.resultado.ruasPorUF);
         $scope.ruasPorDia = estatisticas.construirConfiguracaoRuasPorDia(dados.resultado.ruasPorDia);
     });
 }])
+
+.controller('diaDeRuaStatController', ['$scope', function($scope) {
+
+}]);
