@@ -2,6 +2,7 @@ package org.hojeehdiaderua.controller;
 
 import org.hojeehdiaderua.beans.Resultado;
 import org.hojeehdiaderua.beans.estatisticas.Estatisticas;
+import org.hojeehdiaderua.entities.LogradouroData;
 import org.hojeehdiaderua.service.EstatisticaService;
 import org.hojeehdiaderua.utils.ResultadoUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import java.util.List;
 
 @Controller
 @RequestMapping(value = "/estatistica/*",
@@ -25,8 +28,12 @@ public class EstatisticaController {
     @GetMapping("/mensal/{mes}")
     public
     @ResponseBody
-    String getEstatisticasMensais(@PathVariable Integer mes) {
-        return null;
+    Resultado<Estatisticas> getEstatisticasMensais(@PathVariable Integer mes) {
+        resultadoUtil = new ResultadoUtil<>();
+
+        Estatisticas dados = service.estatisticaMensal(mes);
+
+        return resultadoUtil.comSucesso(dados);
     }
 
     @GetMapping("/anual")
@@ -47,11 +54,17 @@ public class EstatisticaController {
         StringBuilder builder = new StringBuilder();
 
         service
-                .all()
+                .dumpToSQL()
                 .forEach(d -> builder.append(d));
 
         return builder.toString();
     }
 
+    @GetMapping(value = "/all")
+    public
+    @ResponseBody
+    List<LogradouroData> all() {
+        return service.all();
+    }
 
 }

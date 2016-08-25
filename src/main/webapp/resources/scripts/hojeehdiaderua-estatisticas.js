@@ -1,39 +1,12 @@
-angular.module('hojeEhDiaDeRuaAppEstatisticas', ["highcharts-ng"])
+angular.module('hojeEhDiaDeRuaAppEstatisticas', ["highcharts-ng", "ngRoute"])
 
 .constant('$diaDeRuaURL', {'url': '/estatistica'})
-
-.factory('config', function configFactory() {
-    return {
-        options: {
-            chart: {
-                type: 'areaspline'
-            }
-        },
-        title: {
-            style: {"fontWeight": "bold", "fontSize": "20px"}
-        },
-        xAxis: {
-            title: {
-                style: {"font-weight": "bold"}
-            },
-            lineColor: "#000",
-            tickColor: "#000"
-    	},
-    	yAxis: {
-    	    title: {
-    	        text: "Quantidade de Ruas",
-    	        style: {"font-weight": "bold"}
-    	    }
-    	},
-    	series: []
-    }
-})
 
 .config(['$httpProvider', ($httpProvider) => {
     $httpProvider.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 }])
 
-.service('estatisticas', ['$http', '$diaDeRuaURL', 'config', function($http, $diaDeRuaURL, config) {
+.service('estatisticas', ['$http', '$diaDeRuaURL', function($http, $diaDeRuaURL) {
 
     this.anuais = function() {
         return $http.get($diaDeRuaURL.url + "/anual");
@@ -44,7 +17,7 @@ angular.module('hojeEhDiaDeRuaAppEstatisticas', ["highcharts-ng"])
     };
 
     this.construirConfiguracaoRuasPorMes = function(ruasPorMes) {
-        var ruasPorMesConfig = config;
+        var ruasPorMesConfig = cleanCopy();
 
         ruasPorMesConfig.title.text = "Ruas Por Mês"
         ruasPorMesConfig.xAxis.categories = ruasPorMes.categorias;
@@ -62,7 +35,7 @@ angular.module('hojeEhDiaDeRuaAppEstatisticas', ["highcharts-ng"])
     };
 
     this.construirConfiguracaoRuasPorUF = function(ruasPorUF) {
-        var ruasPorUFConfig = config;
+        var ruasPorUFConfig = cleanCopy();
 
         ruasPorUFConfig.title.text = "Ruas Por UF"
         ruasPorUFConfig.xAxis.categories = ruasPorUF.categorias;
@@ -80,7 +53,7 @@ angular.module('hojeEhDiaDeRuaAppEstatisticas', ["highcharts-ng"])
     };
 
     this.construirConfiguracaoRuasPorDia = function(ruasPorDia) {
-        var ruasPorDiaConfig = config;
+        var ruasPorDiaConfig = cleanCopy();
 
         ruasPorDiaConfig.title.text = "Ruas Por Dia"
         ruasPorDiaConfig.xAxis.categories = ruasPorDia.categorias;
@@ -100,6 +73,26 @@ angular.module('hojeEhDiaDeRuaAppEstatisticas', ["highcharts-ng"])
     cleanCopy = function() {
         var chartConfig = {};
 
+        chartConfig.options = {};
+        chartConfig.options.chart = {};
+        chartConfig.options.chart.type = 'areaspline';
+
+        chartConfig.title = {};
+        chartConfig.title.style = {"fontWeight": "bold", "fontSize": "20px"};
+
+    	chartConfig.xAxis = {};
+    	chartConfig.xAxis.title = {};
+    	chartConfig.xAxis.title.style = {"fontWeight": "bold"};
+    	chartConfig.xAxis.lineColor = "#000";
+    	chartConfig.xAxis.tickColor = "#000";
+
+    	chartConfig.yAxis = {};
+    	chartConfig.yAxis.title = {};
+    	chartConfig.yAxis.title.text = "Quantidade de Ruas";
+    	chartConfig.yAxis.title.style = {"font-weight": "bold"};
+
+        chartConfig.series = [];
+
         return chartConfig;
     }
 }])
@@ -115,6 +108,6 @@ angular.module('hojeEhDiaDeRuaAppEstatisticas', ["highcharts-ng"])
         $scope.quantidadeDeCidades = dados.resultado.quantidadeDeCidades;
         $scope.ruasPorMes = estatisticas.construirConfiguracaoRuasPorMes(dados.resultado.ruasPorMes);
         $scope.ruasPorUF = estatisticas.construirConfiguracaoRuasPorUF(dados.resultado.ruasPorUF);
-        $scope.ruasPorDia = esatatisticas.construirConfiguracaoRuasPorDia(dados.resultado.ruasPorDia);
+        $scope.ruasPorDia = estatisticas.construirConfiguracaoRuasPorDia(dados.resultado.ruasPorDia);
     });
 }])

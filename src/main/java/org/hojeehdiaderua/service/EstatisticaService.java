@@ -40,12 +40,31 @@ public class EstatisticaService {
         return estatisticas;
     }
 
-    public List<String> all() {
+    public Estatisticas estatisticaMensal(Integer mes) {
+        Estatisticas estatisticas = new Estatisticas();
+
+        List<LogradouroData> todos = logradouroDataRepository.findByMes(mes.byteValue());
+
+        estatisticas.setQuantidadeDeRuas(todos.size());
+        estatisticas.setQuantidadeDeCidades(quantidadeDeCidades(todos.stream()));
+        estatisticas.setRuasPorUF(ruasPorUF(todos.stream()));
+        estatisticas.setRuasPorDia(ruasPorDia(todos.stream()));
+
+        return estatisticas;
+    }
+
+    public List<LogradouroData> all() {
         return logradouroDataRepository
                 .findAll()
                 .stream()
                 .sorted((l1, l2) -> l1.getDia() - l2.getDia())
                 .sorted((l1, l2) -> l1.getMes() - l2.getMes())
+                .collect(Collectors.toList());
+    }
+
+    public List<String> dumpToSQL() {
+        return all()
+                .stream()
                 .map(l -> buildInsert(l))
                 .collect(Collectors.toList());
     }
@@ -67,6 +86,7 @@ public class EstatisticaService {
     private long quantidadeDeCidades(Stream<LogradouroData> logradouroDataStream) {
         return logradouroDataStream.map(l -> l.getCidade()).distinct().count();
     }
+
 
     private CategoriaSerie<Byte, Long> ruasPorDia(Stream<LogradouroData> logradouroDataStream) {
         Map<Byte, Long> ruasPorDia =
@@ -157,4 +177,6 @@ public class EstatisticaService {
 
         return categoriaSerie;
     }
+
+
 }
