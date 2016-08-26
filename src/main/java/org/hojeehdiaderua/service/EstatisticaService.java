@@ -14,6 +14,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
 import static com.google.common.collect.Lists.newArrayList;
@@ -28,28 +29,22 @@ public class EstatisticaService {
     private MonthConverter monthConverter;
 
     public Estatisticas estatisticaAnual() {
-        Estatisticas estatisticas = new Estatisticas();
+        return getEstatisticas(logradouroDataRepository.findAll());
+    }
 
-        List<LogradouroData> todos = logradouroDataRepository.findAll();
+    public Estatisticas estatisticaMensal(Integer mes) {
+        return getEstatisticas(logradouroDataRepository.findByMes(mes.byteValue()));
+    }
+
+    private Estatisticas getEstatisticas(List<LogradouroData> todos) {
+        Estatisticas estatisticas = new Estatisticas();
 
         estatisticas.setQuantidadeDeRuas(todos.size());
         estatisticas.setQuantidadeDeCidades(quantidadeDeCidades(todos.stream()));
         estatisticas.setRuasPorMes(ruasPorMes(todos.stream()));
         estatisticas.setRuasPorUF(ruasPorUF(todos.stream()));
         estatisticas.setRuasPorDia(ruasPorDia(todos.stream()));
-
-        return estatisticas;
-    }
-
-    public Estatisticas estatisticaMensal(Integer mes) {
-        Estatisticas estatisticas = new Estatisticas();
-
-        List<LogradouroData> todos = logradouroDataRepository.findByMes(mes.byteValue());
-
-        estatisticas.setQuantidadeDeRuas(todos.size());
-        estatisticas.setQuantidadeDeCidades(quantidadeDeCidades(todos.stream()));
-        estatisticas.setRuasPorUF(ruasPorUF(todos.stream()));
-        estatisticas.setRuasPorDia(ruasPorDia(todos.stream()));
+        estatisticas.setTopTenCidadeRua(topTenCidadeRua(todos.stream()));
 
         return estatisticas;
     }
@@ -179,7 +174,7 @@ public class EstatisticaService {
         return categoriaSerie;
     }
 
-    private void topTenCidadeRua(Stream<LogradouroData> logradouroDataStream) {
+    private List<CidadeRua> topTenCidadeRua(Stream<LogradouroData> logradouroDataStream) {
         Map<String, Long> cidadeRua =
                 logradouroDataStream
                         .map(l -> l.getCidade())
@@ -195,10 +190,15 @@ public class EstatisticaService {
                         .keySet()
                         .stream()
                         .map(c -> new CidadeRua(c, cidadeRua.get(c)))
-                        .sorted((c1, c2) -> c1.getTotal().intValue() - c2.getTotal().intValue())
                         .sorted((c1, c2) -> c1.getCidade().compareTo(c2.getCidade()))
+                        .sorted((c1, c2) -> c2.getTotal().intValue() - c1.getTotal().intValue())
+                        .limit(10)
                         .collect(Collectors.toList());
 
+        IntStream
+                .range(0, 10)
+                .forEach(i -> cidadeRuaList.get(i).setPosition(i + 1));
 
+        return cidadeRuaList;
     }
 }

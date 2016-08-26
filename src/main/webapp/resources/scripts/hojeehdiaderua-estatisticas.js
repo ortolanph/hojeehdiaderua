@@ -120,6 +120,7 @@ angular.module('hojeEhDiaDeRuaAppEstatisticas', ["highcharts-ng", "ngRoute"])
          $scope.ruasPorMes = estatisticas.construirConfiguracaoRuasPorMes(dados.resultado.ruasPorMes);
          $scope.ruasPorUF = estatisticas.construirConfiguracaoRuasPorUF(dados.resultado.ruasPorUF);
          $scope.ruasPorDia = estatisticas.construirConfiguracaoRuasPorDia(dados.resultado.ruasPorDia);
+         $scope.topTenCidadeRua = dados.resultado.topTenCidadeRua;
      });
 }])
 
@@ -132,6 +133,7 @@ angular.module('hojeEhDiaDeRuaAppEstatisticas', ["highcharts-ng", "ngRoute"])
         $scope.quantidadeDeCidades = dados.resultado.quantidadeDeCidades;
         $scope.ruasPorUF = estatisticas.construirConfiguracaoRuasPorUF(dados.resultado.ruasPorUF);
         $scope.ruasPorDia = estatisticas.construirConfiguracaoRuasPorDia(dados.resultado.ruasPorDia);
+        $scope.topTenCidadeRua = dados.resultado.topTenCidadeRua;
     });
 }])
 
