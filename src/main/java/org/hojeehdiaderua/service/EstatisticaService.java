@@ -175,9 +175,11 @@ public class EstatisticaService {
     }
 
     private List<CidadeRua> topTenCidadeRua(Stream<LogradouroData> logradouroDataStream) {
+        String formatoCidade = "%s (%s)";
+
         Map<String, Long> cidadeRua =
                 logradouroDataStream
-                        .map(l -> l.getCidade())
+                        .map(l -> String.format(formatoCidade, l.getCidade(), l.getUf()))
                         .collect(
                                 Collectors.groupingBy(
                                         c -> c,

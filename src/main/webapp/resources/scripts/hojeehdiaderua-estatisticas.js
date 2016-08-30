@@ -1,6 +1,7 @@
 angular.module('hojeEhDiaDeRuaAppEstatisticas', ["highcharts-ng", "ngRoute"])
 
 .constant('$diaDeRuaURL', {'url': '/estatistica'})
+.constant('$meses', [ 'Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'])
 
 .config(['$httpProvider', '$routeProvider', function($httpProvider, $routeProvider) {
     $httpProvider.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
@@ -90,7 +91,7 @@ angular.module('hojeEhDiaDeRuaAppEstatisticas', ["highcharts-ng", "ngRoute"])
 
         chartConfig.options = {};
         chartConfig.options.chart = {};
-        chartConfig.options.chart.type = 'areaspline';
+        chartConfig.options.chart.type = 'column';
 
         chartConfig.title = {};
         chartConfig.title.style = {"fontWeight": "bold", "fontSize": "20px"};
@@ -124,8 +125,10 @@ angular.module('hojeEhDiaDeRuaAppEstatisticas', ["highcharts-ng", "ngRoute"])
      });
 }])
 
-.controller('mensalController', ['$scope', '$routeParams', 'estatisticas', function($scope, $routeParams, estatisticas) {
+.controller('mensalController', ['$scope', '$routeParams', 'estatisticas', '$meses', function($scope, $routeParams, estatisticas, $meses) {
     var mes = $routeParams.mes;
+
+    $scope.mes = $meses[mes - 1];
 
     estatisticas.mensais(mes).then((response) => {
         var dados = response.data;
@@ -138,5 +141,4 @@ angular.module('hojeEhDiaDeRuaAppEstatisticas', ["highcharts-ng", "ngRoute"])
 }])
 
 .controller('diaDeRuaStatController', ['$scope', function($scope) {
-
 }]);

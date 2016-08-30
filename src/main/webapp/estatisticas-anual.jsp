@@ -1,22 +1,35 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
-    <p>Quantidade de Ruas: {{quantidadeDeRuas}}</p>
-    <p>Quantidade de Cidades: {{quantidadeDeCidades}}</p>
+    <p><h2>Estatísticas Anuais</h2></p>
+
+    <div id="calendario">
+        <p>Ruas</p>
+        <p>{{quantidadeDeRuas}}</p>
+    </div>
+    <br/>
+    <div id="calendario">
+        <p>Cidades</p>
+        <p>{{quantidadeDeCidades}}</p>
+    </div>
+
+    <br/>
 
     <highchart id="graficoRuasPorMes" config="ruasPorMes" style="width:75%"></highchart>
     <highchart id="graficoRuasPorUF" config="ruasPorUF" style="width:75%"></highchart>
     <highchart id="graficoRuasPorDia" config="ruasPorDia" style="width:75%"></highchart>
 
     <p>Top Ten Cidades x Ruas</p>
-    <table>
-        <td>
-            <tr>#</tr>
-            <tr>Cidade</tr>
-            <tr>Rua</tr>
-        </td>
-        <td ng-repeat="topTen in topTenCidadeRua">
-            <tr>{{topTen.position}}</tr>
-            <tr>{{topTen.cidade}}</tr>
-            <tr>{{topTen.total}}</tr>
-        </td>
-    </table>
+    <span ng-controller="anualController">
+        <table>
+            <tr>
+                <th>#</th>
+                <th>Cidade</th>
+                <th>Ruas</th>
+            </tr>
+            <tr ng-repeat="t in topTenCidadeRua">
+                <td>{{t.position}}</td>
+                <td>{{t.cidade}}</td>
+                <td>{{t.total}}</td>
+            </tr>
+        </table>
+    </span>

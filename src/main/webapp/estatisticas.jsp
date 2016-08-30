@@ -9,25 +9,27 @@
 	    <script src="https://code.highcharts.com/highcharts.js"></script>
 	    <script src="resources/scripts/highcharts-ng.js"></script>
 	    <script src="resources/scripts/hojeehdiaderua-estatisticas.js"></script>
+	    <link href="resources/style/hojeehdiaderua.css" rel="stylesheet" type="text/css" />
+	    <link href="resources/style/estatisticas.css" rel="stylesheet" type="text/css" />
         <title>Hoje é Dia de Rua! - Estatísticas</title>
     </head>
     <body ng-controller="diaDeRuaStatController">
         <h1>Hoje é Dia de Rua! - Estatísticas</h1>
          <nav>
-             <div class="item">
-                 <a href="#/mensal/1">Janeiro</a>
-                 <a href="#/mensal/2">Fevereiro</a>
-                 <a href="#/mensal/3">Março</a>
-                 <a href="#/mensal/4">Abril</a>
-                 <a href="#/mensal/5">Maio</a>
-                 <a href="#/mensal/6">Junho</a>
-                 <a href="#/mensal/7">Julho</a>
-                 <a href="#/mensal/8">Agosto</a>
-                 <a href="#/mensal/9">Setembro</a>
-                 <a href="#/mensal/10">Outubro</a>
-                 <a href="#/mensal/11">Novembro</a>
-                 <a href="#/mensal/12">Dezembro</a>
-                 <a href="#/anual">Anual</a>
+             <div id="items">
+                 <p><span><a href="#/mensal/1">Janeiro</a></span></p>
+                 <p><span><a href="#/mensal/2">Fevereiro</a></span></p>
+                 <p><span><a href="#/mensal/3">Março</a></span></p>
+                 <p><span><a href="#/mensal/4">Abril</a></span></p>
+                 <p><span><a href="#/mensal/5">Maio</a></span></p>
+                 <p><span><a href="#/mensal/6">Junho</a></span></p>
+                 <p><span><a href="#/mensal/7">Julho</a></span></p>
+                 <p><span><a href="#/mensal/8">Agosto</a></span></p>
+                 <p><span><a href="#/mensal/9">Setembro</a></span></p>
+                 <p><span><a href="#/mensal/10">Outubro</a></span></p>
+                 <p><span><a href="#/mensal/11">Novembro</a></span></p>
+                 <p><span><a href="#/mensal/12">Dezembro</a></span></p>
+                 <p><span><a href="#/anual">Anual</a></span></p>
             </div>
          </nav>
          <br/>
