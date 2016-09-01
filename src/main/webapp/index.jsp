@@ -9,6 +9,7 @@
     </head>
     <body ng-controller="diaDeRuaController">
         <h1>Hoje é Dia de Rua!</h1>
+        <h2><a href="estatisticas.jsp">Estatísticas</a></h2>
         <div id="corpo">
             <div id="calendario">
                 <p>

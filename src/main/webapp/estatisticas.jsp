@@ -15,7 +15,8 @@
     </head>
     <body ng-controller="diaDeRuaStatController">
         <h1>Hoje é Dia de Rua! - Estatísticas</h1>
-         <nav>
+        <h2><a href="index.jsp">Voltar</a></h2>
+        <nav>
              <div id="items">
                  <p><span><a href="#/mensal/1">Janeiro</a></span></p>
                  <p><span><a href="#/mensal/2">Fevereiro</a></span></p>
@@ -31,8 +32,8 @@
                  <p><span><a href="#/mensal/12">Dezembro</a></span></p>
                  <p><span><a href="#/anual">Anual</a></span></p>
             </div>
-         </nav>
-         <br/>
-         <div ng-view />
+        </nav>
+        <br/>
+        <div ng-view />
     </body>
 </html>
