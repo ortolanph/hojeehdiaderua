@@ -1,4 +1,4 @@
-package org.hojeehdiaderua.beans.estatisticas;
+package org.hojeehdiaderua.entities.estatisticas;
 
 public class CidadeRua {
     private Integer position;

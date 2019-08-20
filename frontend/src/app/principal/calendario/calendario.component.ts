@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+import { Diarua } from 'src/app/entidades/diarua';
 
 @Component({
   selector: 'app-calendario',
@@ -6,6 +7,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./calendario.component.css']
 })
 export class CalendarioComponent implements OnInit {
+  @Input() diarua: Diarua;
 
   constructor() { }
 

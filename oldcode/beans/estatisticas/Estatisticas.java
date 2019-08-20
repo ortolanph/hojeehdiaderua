@@ -1,4 +1,4 @@
-package org.hojeehdiaderua.beans.estatisticas;
+package org.hojeehdiaderua.entities.estatisticas;
 
 import java.util.List;
 

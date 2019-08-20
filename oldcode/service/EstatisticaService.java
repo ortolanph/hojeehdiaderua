@@ -1,11 +1,9 @@
 package org.hojeehdiaderua.service;
 
-import org.hojeehdiaderua.beans.estatisticas.CategoriaSerie;
-import org.hojeehdiaderua.beans.estatisticas.CidadeRua;
-import org.hojeehdiaderua.beans.estatisticas.Estatisticas;
-import org.hojeehdiaderua.beans.estatisticas.NomeEstadoComparator;
-import org.hojeehdiaderua.entities.LogradouroData;
-import org.hojeehdiaderua.repositories.LogradouroDataRepository;
+import org.hojeehdiaderua.entities.estatisticas.CategoriaSerie;
+import org.hojeehdiaderua.entities.estatisticas.CidadeRua;
+import org.hojeehdiaderua.entities.estatisticas.Estatisticas;
+import org.hojeehdiaderua.entities.estatisticas.NomeEstadoComparator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

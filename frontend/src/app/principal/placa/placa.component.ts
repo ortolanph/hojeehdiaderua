@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+import { Localidade } from 'src/app/entidades/localidade';
 
 @Component({
   selector: 'app-placa',
@@ -6,6 +7,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./placa.component.css']
 })
 export class PlacaComponent implements OnInit {
+  @Input() localidade: Localidade;
 
   constructor() { }
 

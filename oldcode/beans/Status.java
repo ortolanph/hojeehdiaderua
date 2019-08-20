@@ -1,4 +1,4 @@
-package org.hojeehdiaderua.beans;
+package org.hojeehdiaderua.entities;
 
 public enum Status {
     SUCCESS, ERROR;

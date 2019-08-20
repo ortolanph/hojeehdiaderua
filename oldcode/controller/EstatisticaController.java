@@ -1,10 +1,7 @@
 package org.hojeehdiaderua.controller;
 
-import org.hojeehdiaderua.beans.Resultado;
-import org.hojeehdiaderua.beans.estatisticas.Estatisticas;
-import org.hojeehdiaderua.entities.LogradouroData;
-import org.hojeehdiaderua.service.EstatisticaService;
-import org.hojeehdiaderua.utils.ResultadoUtil;
+import org.hojeehdiaderua.entities.Resultado;
+import org.hojeehdiaderua.entities.estatisticas.Estatisticas;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;

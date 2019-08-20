@@ -1,6 +1,5 @@
 package org.hojeehdiaderua.repositories;
 
-import org.hojeehdiaderua.entities.LogradouroData;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.RepositoryDefinition;

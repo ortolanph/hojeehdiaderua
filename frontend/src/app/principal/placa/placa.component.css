@@ -1,0 +1,16 @@
+#cidade p {
+	width: 700px;
+	font-size: 30pt;
+	padding: 5px;
+	margin: 20px auto;
+	background-color: #00306a;
+}
+
+#cidade span {
+	display: block;
+	border: 5px solid white;
+	border-radius: 10px;
+	border-right: 5px solid white;
+	margin: 0;
+	padding: 5px;
+}

@@ -1,4 +1,4 @@
-package org.hojeehdiaderua.beans;
+package org.hojeehdiaderua.entities;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 

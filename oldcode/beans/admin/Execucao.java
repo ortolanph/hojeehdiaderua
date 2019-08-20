@@ -1,4 +1,4 @@
-package org.hojeehdiaderua.beans.admin;
+package org.hojeehdiaderua.entities.admin;
 
 import java.util.List;
 

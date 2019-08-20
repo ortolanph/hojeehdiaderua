@@ -1,4 +1,4 @@
-package org.hojeehdiaderua.beans.calendario;
+package org.hojeehdiaderua.entities.calendario;
 
 public class Localidade {
     private String cidade;

@@ -1,1 +1,13 @@
-<p>placa works!</p>
+<div *ngIf="localidade">
+    <div id="cidade">
+        <p>
+            <span>
+                <a
+                    href="https://www.google.com/maps/@{{localidade.latitude}},{{localidade.longitude}},19z"
+                    target="_blank">
+                    {{localidade.cidade}} - {{localidade.uf}}
+                </a>
+            </span>
+        </p>
+    </div>
+</div>

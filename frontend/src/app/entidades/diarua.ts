@@ -1,7 +1,9 @@
+import { Localidade } from './localidade';
+
 export class Diarua {
     dia: number;
-    mes: number;
+    mes: string;
     ano: number;
-    diaSemana: number;
-    localidades: [];
+    diaSemana: string;
+    localidades: Localidade[];
 }

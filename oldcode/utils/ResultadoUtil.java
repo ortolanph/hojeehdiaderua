@@ -1,7 +1,7 @@
 package org.hojeehdiaderua.utils;
 
-import org.hojeehdiaderua.beans.Resultado;
-import org.hojeehdiaderua.beans.Status;
+import org.hojeehdiaderua.entities.Resultado;
+import org.hojeehdiaderua.entities.Status;
 
 public class ResultadoUtil<T> {
 

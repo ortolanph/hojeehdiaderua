@@ -1,10 +1,11 @@
 <div id="corpo">
-  <app-calendario></app-calendario>
-  <app-placa></app-placa>
-  <app-placa></app-placa>
-  <app-placa></app-placa>
-  <app-placa></app-placa>
-  <app-placa></app-placa>
-  <app-placa></app-placa>
-  <app-placa></app-placa>
+  <app-calendario [diarua]="diarua"></app-calendario>
+  <p></p>
+  <h2>Existe(m) {{diarua.localidades.length}} rua(s) com essa data em:</h2>
+  <p></p>
+  <div *ngFor="let localidade of diarua.localidades">
+    <app-placa [localidade]="localidade"></app-placa>
+    <p></p>
+  </div>
+  <p *ngIf="!diarua.localidades">Infelizmente nenhuma cidade decidiu batizar uma rua com essa data...</p>
 </div>

@@ -1,13 +1,8 @@
 package org.hojeehdiaderua.controller;
 
-import org.hojeehdiaderua.beans.Resultado;
-import org.hojeehdiaderua.beans.calendario.Calendario;
-import org.hojeehdiaderua.beans.calendario.Localidade;
-import org.hojeehdiaderua.entities.LogradouroData;
-import org.hojeehdiaderua.service.DayOfWeekConverter;
-import org.hojeehdiaderua.service.DiaDeRuaService;
-import org.hojeehdiaderua.service.MonthConverter;
-import org.hojeehdiaderua.utils.ResultadoUtil;
+import org.hojeehdiaderua.entities.Resultado;
+import org.hojeehdiaderua.entities.calendario.Calendario;
+import org.hojeehdiaderua.entities.calendario.Localidade;
 import org.joda.time.DateTimeZone;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

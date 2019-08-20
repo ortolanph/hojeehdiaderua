@@ -1,10 +1,7 @@
 package org.hojeehdiaderua.controller;
 
-import org.hojeehdiaderua.beans.Resultado;
-import org.hojeehdiaderua.beans.admin.Execucao;
-import org.hojeehdiaderua.service.CalendarioService;
-import org.hojeehdiaderua.utils.ExecucaoManager;
-import org.hojeehdiaderua.utils.ResultadoUtil;
+import org.hojeehdiaderua.entities.Resultado;
+import org.hojeehdiaderua.entities.admin.Execucao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
