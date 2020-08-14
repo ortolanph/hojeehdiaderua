@@ -1,4 +1,4 @@
-﻿<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html ng-app="hojeEhDiaDeRuaApp">
     <head>
@@ -11,6 +11,10 @@
         <h1>Hoje é Dia de Rua!</h1>
         <h2><a href="estatisticas.jsp">Estatísticas</a></h2>
         <div id="corpo">
+            <div id="cidade">
+                <p>Em 31/08/2020 esse site será descontinuado. O site será reconstruído.</p>
+            </div>
+
             <div id="calendario">
                 <p>
                     <a href="https://pt.wikipedia.org/wiki/{{diaderua.resultado.dia}}_de_{{diaderua.resultado.mes}}" target="_blank">
