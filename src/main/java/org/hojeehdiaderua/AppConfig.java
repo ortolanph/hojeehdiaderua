@@ -13,9 +13,9 @@ import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import org.springframework.web.servlet.view.JstlView;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
 import javax.sql.DataSource;
 import java.net.URI;
@@ -122,10 +122,5 @@ public class AppConfig extends WebMvcConfigurerAdapter {
         dataSource.setMaxActive(10);
         dataSource.setMinIdle(10);
         return dataSource;
-    }
-
-    @Bean
-    public GeoApiContext geoApiContext() {
-        return new GeoApiContext().setApiKey(environment.getProperty("GOOGLE_MAPS_API_KEY"));
     }
 }
