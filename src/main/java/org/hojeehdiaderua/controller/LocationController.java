@@ -1,5 +1,6 @@
 package org.hojeehdiaderua.controller;
 
+import lombok.extern.slf4j.Slf4j;
 import org.hojeehdiaderua.entities.Location;
 import org.hojeehdiaderua.service.LocationService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,7 @@ import java.util.List;
 @CrossOrigin
 @RestController
 @RequestMapping("/api/locations")
+@Slf4j
 public class LocationController {
 
     @Autowired
@@ -23,12 +25,14 @@ public class LocationController {
     @GetMapping("/country/{code}/today")
     public @ResponseBody
     List<Location> getTodayLocationsByCountry(@PathVariable String code) {
+        log.info("LOCATIONS: TODAY");
         return service.getTodayLocations(code);
     }
 
     @GetMapping("/country/{code}/day/{day}/month/{month}")
     public @ResponseBody
     List<Location> getLocationsByCountry(@PathVariable String code, @PathVariable int day, @PathVariable int month) {
+        log.info("LOCATIONS: BY DAY AND MONTH");
         return service.getLocationByDayAndMonth(code, day, month);
     }
 
