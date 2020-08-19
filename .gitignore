@@ -31,5 +31,8 @@ cookie
 
 ### Others
 .project
-.settings/
+.settings
 .classpath
+.gradle
+build
+.idea
