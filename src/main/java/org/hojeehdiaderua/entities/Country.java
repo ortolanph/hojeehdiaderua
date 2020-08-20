@@ -26,5 +26,6 @@ public class Country {
     @Column(length = 2)
     private String code;
     private String name;
+    private String timezone;
 
 }
