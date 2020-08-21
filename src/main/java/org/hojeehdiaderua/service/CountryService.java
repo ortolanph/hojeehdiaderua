@@ -57,8 +57,9 @@ public class CountryService {
         if (optionalOldCountry.isPresent()) {
             Country oldCountry = optionalOldCountry.get();
 
-            oldCountry.setName(newCountry.getName());
-            oldCountry.setCode(newCountry.getCode());
+            oldCountry.setName(newCountry.getName() != null ? newCountry.getName() : oldCountry.getName());
+            oldCountry.setCode(newCountry.getCode() != null ? newCountry.getCode() : oldCountry.getCode());
+            oldCountry.setTimezone(newCountry.getTimezone() != null ? newCountry.getTimezone() : oldCountry.getTimezone());
 
             return repository.save(oldCountry);
         } else {

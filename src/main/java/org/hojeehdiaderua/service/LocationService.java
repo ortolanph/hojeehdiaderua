@@ -23,7 +23,7 @@ public class LocationService {
     public List<Location> getTodayLocations(String code) {
         Optional<Country> country = countryService.findByCode(code);
         LocalDate today = LocalDate.now(ZoneId.of(country.get().getTimezone()));
-        return getLocationByDayAndMonth(code, today.getDayOfMonth(), today.getMonthValue() - 1);
+        return getLocationByDayAndMonth(code, today.getDayOfMonth(), today.getMonthValue());
     }
 
     public List<Location> getLocationByDayAndMonth(String code, int day, int month) {
